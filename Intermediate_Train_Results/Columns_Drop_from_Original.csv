@@ -1,0 +1,354 @@
+Columns_Removed,Reason
+Wafer,Irrelevant column
+Sensor158,More than 80% missing values
+Sensor159,More than 80% missing values
+Sensor293,More than 80% missing values
+Sensor294,More than 80% missing values
+Sensor6,Constant variance
+Sensor14,Constant variance
+Sensor43,Constant variance
+Sensor50,Constant variance
+Sensor53,Constant variance
+Sensor70,Constant variance
+Sensor75,Constant variance
+Sensor98,Constant variance
+Sensor115,Constant variance
+Sensor142,Constant variance
+Sensor150,Constant variance
+Sensor179,Constant variance
+Sensor180,Constant variance
+Sensor187,Constant variance
+Sensor190,Constant variance
+Sensor191,Constant variance
+Sensor192,Constant variance
+Sensor193,Constant variance
+Sensor194,Constant variance
+Sensor195,Constant variance
+Sensor207,Constant variance
+Sensor210,Constant variance
+Sensor227,Constant variance
+Sensor230,Constant variance
+Sensor231,Constant variance
+Sensor232,Constant variance
+Sensor233,Constant variance
+Sensor234,Constant variance
+Sensor235,Constant variance
+Sensor236,Constant variance
+Sensor237,Constant variance
+Sensor238,Constant variance
+Sensor241,Constant variance
+Sensor242,Constant variance
+Sensor243,Constant variance
+Sensor244,Constant variance
+Sensor250,Constant variance
+Sensor257,Constant variance
+Sensor258,Constant variance
+Sensor259,Constant variance
+Sensor260,Constant variance
+Sensor261,Constant variance
+Sensor262,Constant variance
+Sensor263,Constant variance
+Sensor264,Constant variance
+Sensor265,Constant variance
+Sensor266,Constant variance
+Sensor267,Constant variance
+Sensor277,Constant variance
+Sensor285,Constant variance
+Sensor314,Constant variance
+Sensor315,Constant variance
+Sensor316,Constant variance
+Sensor323,Constant variance
+Sensor326,Constant variance
+Sensor327,Constant variance
+Sensor328,Constant variance
+Sensor329,Constant variance
+Sensor330,Constant variance
+Sensor331,Constant variance
+Sensor343,Constant variance
+Sensor348,Constant variance
+Sensor365,Constant variance
+Sensor370,Constant variance
+Sensor371,Constant variance
+Sensor372,Constant variance
+Sensor373,Constant variance
+Sensor374,Constant variance
+Sensor375,Constant variance
+Sensor376,Constant variance
+Sensor379,Constant variance
+Sensor380,Constant variance
+Sensor381,Constant variance
+Sensor382,Constant variance
+Sensor388,Constant variance
+Sensor395,Constant variance
+Sensor396,Constant variance
+Sensor397,Constant variance
+Sensor398,Constant variance
+Sensor399,Constant variance
+Sensor400,Constant variance
+Sensor401,Constant variance
+Sensor402,Constant variance
+Sensor403,Constant variance
+Sensor404,Constant variance
+Sensor405,Constant variance
+Sensor415,Constant variance
+Sensor423,Constant variance
+Sensor450,Constant variance
+Sensor451,Constant variance
+Sensor452,Constant variance
+Sensor459,Constant variance
+Sensor462,Constant variance
+Sensor463,Constant variance
+Sensor464,Constant variance
+Sensor465,Constant variance
+Sensor466,Constant variance
+Sensor467,Constant variance
+Sensor479,Constant variance
+Sensor482,Constant variance
+Sensor499,Constant variance
+Sensor502,Constant variance
+Sensor503,Constant variance
+Sensor504,Constant variance
+Sensor505,Constant variance
+Sensor506,Constant variance
+Sensor507,Constant variance
+Sensor508,Constant variance
+Sensor509,Constant variance
+Sensor510,Constant variance
+Sensor513,Constant variance
+Sensor514,Constant variance
+Sensor515,Constant variance
+Sensor516,Constant variance
+Sensor522,Constant variance
+Sensor529,Constant variance
+Sensor530,Constant variance
+Sensor531,Constant variance
+Sensor532,Constant variance
+Sensor533,Constant variance
+Sensor534,Constant variance
+Sensor535,Constant variance
+Sensor536,Constant variance
+Sensor537,Constant variance
+Sensor538,Constant variance
+Sensor539,Constant variance
+Sensor570,Highly correlated with other features
+Sensor446,Highly correlated with other features
+Sensor275,Highly correlated with other features
+Sensor394,Highly correlated with other features
+Sensor581,Highly correlated with other features
+Sensor378,Highly correlated with other features
+Sensor585,Highly correlated with other features
+Sensor412,Highly correlated with other features
+Sensor454,Highly correlated with other features
+Sensor73,Highly correlated with other features
+Sensor526,Highly correlated with other features
+Sensor416,Highly correlated with other features
+Sensor447,Highly correlated with other features
+Sensor555,Highly correlated with other features
+Sensor498,Highly correlated with other features
+Sensor428,Highly correlated with other features
+Sensor31,Highly correlated with other features
+Sensor286,Highly correlated with other features
+Sensor125,Highly correlated with other features
+Sensor453,Highly correlated with other features
+Sensor390,Highly correlated with other features
+Sensor414,Highly correlated with other features
+Sensor303,Highly correlated with other features
+Sensor386,Highly correlated with other features
+Sensor389,Highly correlated with other features
+Sensor409,Highly correlated with other features
+Sensor417,Highly correlated with other features
+Sensor449,Highly correlated with other features
+Sensor292,Highly correlated with other features
+Sensor322,Highly correlated with other features
+Sensor492,Highly correlated with other features
+Sensor106,Highly correlated with other features
+Sensor290,Highly correlated with other features
+Sensor288,Highly correlated with other features
+Sensor475,Highly correlated with other features
+Sensor435,Highly correlated with other features
+Sensor291,Highly correlated with other features
+Sensor300,Highly correlated with other features
+Sensor308,Highly correlated with other features
+Sensor357,Highly correlated with other features
+Sensor313,Highly correlated with other features
+Sensor558,Highly correlated with other features
+Sensor203,Highly correlated with other features
+Sensor517,Highly correlated with other features
+Sensor97,Highly correlated with other features
+Sensor491,Highly correlated with other features
+Sensor67,Highly correlated with other features
+Sensor544,Highly correlated with other features
+Sensor284,Highly correlated with other features
+Sensor364,Highly correlated with other features
+Sensor589,Highly correlated with other features
+Sensor442,Highly correlated with other features
+Sensor299,Highly correlated with other features
+Sensor332,Highly correlated with other features
+Sensor455,Highly correlated with other features
+Sensor341,Highly correlated with other features
+Sensor342,Highly correlated with other features
+Sensor355,Highly correlated with other features
+Sensor302,Highly correlated with other features
+Sensor345,Highly correlated with other features
+Sensor318,Highly correlated with other features
+Sensor413,Highly correlated with other features
+Sensor474,Highly correlated with other features
+Sensor408,Highly correlated with other features
+Sensor527,Highly correlated with other features
+Sensor497,Highly correlated with other features
+Sensor468,Highly correlated with other features
+Sensor312,Highly correlated with other features
+Sensor476,Highly correlated with other features
+Sensor478,Highly correlated with other features
+Sensor541,Highly correlated with other features
+Sensor432,Highly correlated with other features
+Sensor271,Highly correlated with other features
+Sensor431,Highly correlated with other features
+Sensor495,Highly correlated with other features
+Sensor496,Highly correlated with other features
+Sensor297,Highly correlated with other features
+Sensor305,Highly correlated with other features
+Sensor470,Highly correlated with other features
+Sensor477,Highly correlated with other features
+Sensor274,Highly correlated with other features
+Sensor542,Highly correlated with other features
+Sensor350,Highly correlated with other features
+Sensor339,Highly correlated with other features
+Sensor480,Highly correlated with other features
+Sensor521,Highly correlated with other features
+Sensor281,Highly correlated with other features
+Sensor333,Highly correlated with other features
+Sensor280,Highly correlated with other features
+Sensor324,Highly correlated with other features
+Sensor63,Highly correlated with other features
+Sensor418,Highly correlated with other features
+Sensor352,Highly correlated with other features
+Sensor307,Highly correlated with other features
+Sensor421,Highly correlated with other features
+Sensor568,Highly correlated with other features
+Sensor543,Highly correlated with other features
+Sensor440,Highly correlated with other features
+Sensor358,Highly correlated with other features
+Sensor366,Highly correlated with other features
+Sensor406,Highly correlated with other features
+Sensor569,Highly correlated with other features
+Sensor457,Highly correlated with other features
+Sensor590,Highly correlated with other features
+Sensor148,Highly correlated with other features
+Sensor276,Highly correlated with other features
+Sensor356,Highly correlated with other features
+Sensor255,Highly correlated with other features
+Sensor65,Highly correlated with other features
+Sensor392,Highly correlated with other features
+Sensor567,Highly correlated with other features
+Sensor311,Highly correlated with other features
+Sensor437,Highly correlated with other features
+Sensor320,Highly correlated with other features
+Sensor554,Highly correlated with other features
+Sensor518,Highly correlated with other features
+Sensor202,Highly correlated with other features
+Sensor519,Highly correlated with other features
+Sensor128,Highly correlated with other features
+Sensor471,Highly correlated with other features
+Sensor155,Highly correlated with other features
+Sensor383,Highly correlated with other features
+Sensor309,Highly correlated with other features
+Sensor61,Highly correlated with other features
+Sensor448,Highly correlated with other features
+Sensor279,Highly correlated with other features
+Sensor289,Highly correlated with other features
+Sensor391,Highly correlated with other features
+Sensor102,Highly correlated with other features
+Sensor71,Highly correlated with other features
+Sensor334,Highly correlated with other features
+Sensor575,Highly correlated with other features
+Sensor306,Highly correlated with other features
+Sensor427,Highly correlated with other features
+Sensor51,Highly correlated with other features
+Sensor407,Highly correlated with other features
+Sensor458,Highly correlated with other features
+Sensor460,Highly correlated with other features
+Sensor520,Highly correlated with other features
+Sensor282,Highly correlated with other features
+Sensor278,Highly correlated with other features
+Sensor325,Highly correlated with other features
+Sensor377,Highly correlated with other features
+Sensor577,Highly correlated with other features
+Sensor545,Highly correlated with other features
+Sensor37,Highly correlated with other features
+Sensor444,Highly correlated with other features
+Sensor273,Highly correlated with other features
+Sensor422,Highly correlated with other features
+Sensor385,Highly correlated with other features
+Sensor546,Highly correlated with other features
+Sensor55,Highly correlated with other features
+Sensor338,Highly correlated with other features
+Sensor66,Highly correlated with other features
+Sensor19,Highly correlated with other features
+Sensor436,Highly correlated with other features
+Sensor472,Highly correlated with other features
+Sensor349,Highly correlated with other features
+Sensor525,Highly correlated with other features
+Sensor576,Highly correlated with other features
+Sensor367,Highly correlated with other features
+Sensor493,Highly correlated with other features
+Sensor445,Highly correlated with other features
+Sensor105,Highly correlated with other features
+Sensor251,Highly correlated with other features
+Sensor411,Highly correlated with other features
+Sensor107,Highly correlated with other features
+Sensor393,Highly correlated with other features
+Sensor272,Highly correlated with other features
+Sensor319,Highly correlated with other features
+Sensor540,Highly correlated with other features
+Sensor310,Highly correlated with other features
+Sensor298,Highly correlated with other features
+Sensor336,Highly correlated with other features
+Sensor340,Highly correlated with other features
+Sensor556,Highly correlated with other features
+Sensor438,Highly correlated with other features
+Sensor511,Highly correlated with other features
+Sensor384,Highly correlated with other features
+Sensor587,Highly correlated with other features
+Sensor557,Highly correlated with other features
+Sensor425,Highly correlated with other features
+Sensor363,Highly correlated with other features
+Sensor335,Highly correlated with other features
+Sensor430,Highly correlated with other features
+Sensor296,Highly correlated with other features
+Sensor175,Highly correlated with other features
+Sensor561,Highly correlated with other features
+Sensor441,Highly correlated with other features
+Sensor429,Highly correlated with other features
+Sensor351,Highly correlated with other features
+Sensor523,Highly correlated with other features
+Sensor304,Highly correlated with other features
+Sensor410,Highly correlated with other features
+Sensor317,Highly correlated with other features
+Sensor344,Highly correlated with other features
+Sensor154,Highly correlated with other features
+Sensor353,Highly correlated with other features
+Sensor494,Highly correlated with other features
+Sensor360,Highly correlated with other features
+Sensor387,Highly correlated with other features
+Sensor426,Highly correlated with other features
+Sensor283,Highly correlated with other features
+Sensor562,Highly correlated with other features
+Sensor301,Highly correlated with other features
+Sensor578,Highly correlated with other features
+Sensor321,Highly correlated with other features
+Sensor354,Highly correlated with other features
+Sensor481,Highly correlated with other features
+Sensor131,Highly correlated with other features
+Sensor362,Highly correlated with other features
+Sensor553,Highly correlated with other features
+Sensor456,Highly correlated with other features
+Sensor443,Highly correlated with other features
+Sensor528,Highly correlated with other features
+Sensor439,Highly correlated with other features
+Sensor287,Highly correlated with other features
+Sensor361,Highly correlated with other features
+Sensor124,Highly correlated with other features
+Sensor586,Highly correlated with other features
+Sensor524,Highly correlated with other features
+Sensor295,Highly correlated with other features

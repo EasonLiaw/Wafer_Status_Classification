@@ -1,0 +1,5 @@
+2022-04-08/22:08:44		Start storing best models for model deployment
+2022-04-08/22:08:44		Start using best clustering model based on best configurations identified for prediction
+2022-04-08/22:08:44		Finish making predictions using best clustering model based on best configurations identified
+2022-04-08/22:08:44		SVC model used to make predictions successfully
+2022-04-08/22:08:44		Finish making predictions using best models for model deployment
