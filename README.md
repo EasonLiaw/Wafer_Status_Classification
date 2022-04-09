@@ -122,7 +122,7 @@ If you encounter the TomlDecodeError, ensure that the <b>config.toml</b> file is
 
 **Project Instructions (Docker)**
 ---
-A suitable alternative for deploying this project regardless of operating system environment is to use Docker.
+A suitable alternative for deploying this project is to use Docker, which allows easy deployment on other running instances. Docker image is created under Windows Operating system for this project, therefore these instructions will only work on other windows instances.
 
 Note that Docker Desktop needs to be installed into your local system, before proceeding with the following steps:
 
@@ -131,7 +131,7 @@ Note that Docker Desktop needs to be installed into your local system, before pr
 
 2. Empty the files stored inside Training_Logs and Prediction_Logs folder.  
   
-3. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: logins = {"host": <host_name>, "user": <user_name>, "password": <password>, "dbname": <default_Heroku_database_name>}. 
+3. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: logins = {"host": <host_name>, "user": <user_name>, "password": <password>, "dbname": <default_database_name>}. 
 - For security reasons, this file needs to be stored in private.
   
 4. Create a file named Dockerfile with the following commands:
