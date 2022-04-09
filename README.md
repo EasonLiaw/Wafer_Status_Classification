@@ -122,9 +122,11 @@ If you encounter the TomlDecodeError, ensure that the <b>config.toml</b> file is
 
 **Project Instructions (Docker)**
 ---
-A suitable alternative for deploying this project is to use Docker, which allows easy deployment on other running instances. Docker image is created under Windows Operating system for this project, therefore these instructions will only work on other windows instances.
+A suitable alternative for deploying this project is to use Docker, which allows easy deployment on other running instances. 
+  
+<b>Note that docker image is created under Windows Operating system for this project, therefore these instructions will only work on other windows instances.</b>
 
-Note that Docker Desktop needs to be installed into your local system, before proceeding with the following steps:
+Docker Desktop needs to be installed into your local system, before proceeding with the following steps:
 
 1. Download and extract the zip file from this github repository into your local machine system.
 <img src="https://user-images.githubusercontent.com/34255556/160223555-388eb56f-7ca5-4d40-88ca-ad80b1638599.png" width="600" height="200">
