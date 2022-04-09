@@ -156,6 +156,7 @@ Docker Desktop needs to be installed into your local system, before proceeding w
 ---
 
 1. Overall confusion matrix
+
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
 
 ![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/162558419-622cb9d3-38af-461a-82ed-0d1807b4ae6d.png)
@@ -163,6 +164,7 @@ The following image below summarizes the confusion matrix from the final model t
 From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (4 samples), as compared to false positives (195 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
   
 2. Best classification model configuration
+
 The following information below summarizes the configuration of the best model identified in this project:
 
 - Best model class identified: Support Vector Machine Classifier
@@ -180,6 +182,7 @@ The following information below summarizes the configuration of the best model i
 Note that the results above may differ for every instance of project implementation.
 
 3. Summary of model evaluation metrics from best classification model
+
 The following information below summarizes the evaluation metrics from the best model identified in this project: 
 
 - Matthews Correlation Coefficient (Train-val set): 0.2905
