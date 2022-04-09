@@ -1,6 +1,6 @@
 from kneed import KneeLocator
 from sklearn.cluster import KMeans
-from sklearn.model_selection import cross_val_score, cross_validate
+from sklearn.model_selection import cross_val_score, cross_validate, learning_curve
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -372,6 +372,20 @@ class model_trainer:
             fbeta_score(y_sub, model.predict(X_sub), average='micro', beta=2),fbeta_score(y_sub, model.predict(X_sub), average='macro', beta=2),
             fbeta_score(y_sub, model.predict(X_sub), average='weighted', beta=2)], name='f2_score', index =['-1', '1', 'accuracy', 'macro avg', 'weighted avg'])
             pd.concat([pd.DataFrame(report).transpose(),f_beta_results],axis=1).to_csv('Intermediate_Train_Results/' + name_model + '_Classification_Report.csv')
+            train_size, train_score, test_score = learning_curve(estimator=model, X=X_sub, y=y_sub, cv=10, scoring=make_scorer(fbeta_score, beta=2))
+            train_score_m = np.mean(np.abs(train_score), axis=1)
+            test_score_m = np.mean(np.abs(test_score), axis=1)
+            fig1, ax1 = plt.subplots()
+            ax1.plot(train_size, train_score_m, 'o-', color="b")
+            ax1.plot(train_size, test_score_m, 'o-', color="r")
+            ax1.legend(('Training score', 'Test score'), loc='best')
+            ax1.set_xlabel("Training Samples")
+            ax1.set_ylabel("F2 score")
+            ax1.set_title("Learning Curve Analysis (CV=10)")
+            ax1.grid()
+            ax1.annotate(np.round(train_score_m[-1],4),(train_size[-1]-50,train_score_m[-1]+0.05))
+            ax1.annotate(np.round(test_score_m[-1],4),(train_size[-1]-50,test_score_m[-1]-0.05))
+            plt.savefig('Intermediate_Train_Results/Learning_Curve_Analysis.png')
         except Exception as e:
             self.log_writer.log(self.file_object, f'Training and saving the {name_model} model failed with the following error: {e}')
             raise Exception()
