@@ -155,6 +155,11 @@ Docker Desktop needs to be installed into your local system, before proceeding w
 **Project Findings**
 ---
 
+The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
+![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/162558419-622cb9d3-38af-461a-82ed-0d1807b4ae6d.png)
+
+From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (4 samples), as compared to false positives (195 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
+
 **Legality**
 ---
 This is a personal project made for non-commercial uses ONLY. This project will not be used to generate any promotional or monetary value for me, the creator, or the user.
