@@ -27,7 +27,7 @@ def main():
             X_train, X_test, y_train, y_test = preprocessor.data_preprocessing('Training_Data_FromDB/Training_Data.csv', 'Columns_Drop_from_Original.csv','Wafer','Output')
         with open("Training_Logs/Training_Model_Log.txt", 'a+') as file:
             trainer = model_trainer(file)
-            trainer.train_model_and_hyperparameter_tuning(X_train, X_test, y_train, y_test,'Intermediate_Train_Results/Model_results_by_num_features.csv','Intermediate_Train_Results/Best_Model_Results.csv')
+            trainer.train_model_and_hyperparameter_tuning(X_train, X_test, y_train, y_test,'Intermediate_Train_Results/','Model_results_by_num_features.csv','Best_Model_Results.csv', 0.05)
         with ZipFile("training_files_download.zip", "w") as newzip:
             for folder in ['Archive_Training_Data','Training_Data_FromDB','Intermediate_Train_Results','Training_Logs','Saved_Models']:
                 for file in os.listdir(folder):
@@ -46,7 +46,8 @@ def main():
             X_pred = preprocessor.data_preprocessing('Prediction_Data_FromDB/Prediction_Data.csv','Intermediate_Train_Results/Best_Model_Results.csv')
         with open("Prediction_Logs/Prediction_Model_Log.txt", 'a+') as file:
             model_objects = os.listdir('Saved_Models/')
-            model_objects.remove('kmeans_model.pkl')    
+            if len(model_objects)>1:
+                model_objects.remove('kmeans_model.pkl')    
             predictor = model_predictor(file)
             predictor.model_prediction('Intermediate_Train_Results/Best_Model_Results.csv',f'Saved_Models/{model_objects[0]}', 'Saved_Models/kmeans_model.pkl', X_pred,'Wafer')
         with ZipFile("prediction_files_download.zip", "w") as newzip:

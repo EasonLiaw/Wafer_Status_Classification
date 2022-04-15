@@ -38,6 +38,7 @@ Sensor56
 Sensor57
 Sensor58
 Sensor59
+Sensor64
 Sensor68
 Sensor72
 Sensor74
@@ -51,8 +52,8 @@ Sensor87
 Sensor88
 Sensor89
 Sensor90
-Sensor91
 Sensor92
+Sensor93
 Sensor94
 Sensor95
 Sensor96
@@ -145,7 +146,6 @@ Sensor268
 Sensor269
 Sensor270
 Sensor337
-Sensor347
 Sensor368
 Sensor369
 Sensor419
@@ -165,6 +165,7 @@ Sensor490
 Sensor500
 Sensor501
 Sensor512
+Sensor520
 Sensor547
 Sensor548
 Sensor549
@@ -185,4 +186,5 @@ Sensor579
 Sensor580
 Sensor582
 Sensor584
-Sensor588
+Sensor587
+Sensor590

@@ -80,7 +80,7 @@ class DBOperations:
         try:
             conn = mysql.connector.connect(host=self.host,user=self.user,password=self.password,database = self.dbname)
             try:
-                data = pd.read_sql(f'''SELECT * FROM {self.tablename};''', conn)
+                data = pd.read_sql(f'''SELECT DISTINCT * FROM {self.tablename};''', conn)
                 data.to_csv(self.compiledir, index=False)
             except Exception as e:
                 self.log_writer.log(self.file_object, f"File exporting failed with the following error: {e}")

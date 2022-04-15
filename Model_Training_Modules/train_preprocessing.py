@@ -198,7 +198,7 @@ class train_Preprocessor:
                     pkl.dump(imputer, open(self.result_dir+'SimpleMedianImputer.pkl','wb'))
                     self.log_writer.log(self.file_object, f"The following columns have been imputed using simple median strategy: {column_list}")
                 elif method == 'iterative':
-                    imputer = IterativeImputer(max_iter = 100, verbose=1, initial_strategy='mean', random_state=42, 
+                    imputer = IterativeImputer(max_iter = 10, verbose=1, initial_strategy='mean', random_state=42, 
                     n_nearest_features=min(20, len(X_train.columns)))
                     X_train = pd.DataFrame(imputer.fit_transform(X_train), columns=X_train.columns)
                     X_test = pd.DataFrame(imputer.transform(X_test), columns=X_test.columns)

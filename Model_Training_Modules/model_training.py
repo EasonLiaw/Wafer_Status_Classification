@@ -24,12 +24,7 @@ class model_trainer:
     def __init__(self, file_object):
         self.file_object = file_object
         self.log_writer = App_Logger()
-        
-    def classification_metrics(clf,X_train_data,y_train_data):
-        matthews_corrcoef_score = cross_val_score(clf, X_train_data, y_train_data, cv=5, scoring= make_scorer(matthews_corrcoef)).mean()
-        f2_score = cross_val_score(clf, X_train_data, y_train_data, cv=5, scoring=make_scorer(fbeta_score, beta=2, average='macro')).mean()
-        return matthews_corrcoef_score, f2_score
-
+    
     def rf_objective(trial,X_train_data,y_train_data):
         ccp_alpha = trial.suggest_float('ccp_alpha', 0,1)
         criterion = trial.suggest_categorical('criterion',['gini','entropy'])
@@ -79,14 +74,12 @@ class model_trainer:
         weights = trial.suggest_categorical('weights', ['uniform', 'distance'])
         leaf_size = trial.suggest_int('leaf_size',10,100)
         p = trial.suggest_int('p',1,5)
-        
         clf = KNeighborsClassifier(n_neighbors=n_neighbors,algorithm=algorithm,weights=weights,leaf_size=leaf_size,p=p)
         matthews_corrcoef,f2_score = model_trainer.classification_metrics(clf,X_train_data,y_train_data)
         return matthews_corrcoef,f2_score
 
     def gaussiannb_objective(trial,X_train_data,y_train_data):
         var_smoothing = trial.suggest_float('var_smoothing', 0, 1)
-        
         clf = GaussianNB(var_smoothing=var_smoothing)
         matthews_corrcoef,f2_score = model_trainer.classification_metrics(clf,X_train_data,y_train_data)
         return matthews_corrcoef,f2_score
@@ -104,7 +97,6 @@ class model_trainer:
     def adaboost_objective(trial,X_train_data,y_train_data):
         learning_rate = trial.suggest_float('learning_rate',0.001,2)
         n_estimators = trial.suggest_int('n_estimators', 10, 100,1)
-        
         clf = AdaBoostClassifier(learning_rate=learning_rate, n_estimators=n_estimators, random_state=42)
         matthews_corrcoef,f2_score = model_trainer.classification_metrics(clf,X_train_data,y_train_data)
         return matthews_corrcoef,f2_score
@@ -127,7 +119,6 @@ class model_trainer:
         rate_drop = trial.suggest_float('rate_drop',0,1)
         one_drop = trial.suggest_float('one_drop',0,1)
         skip_drop = trial.suggest_float('skip_drop',0,1)
-        
         clf = XGBClassifier(objective='binary:logistic', eval_metric='logloss', verbosity=0, booster=booster,
                         eta=eta, gamma=gamma, max_depth=max_depth, min_child_weight=min_child_weight, 
                         max_delta_step=max_delta_step, subsample=subsample, colsample_bytree=colsample_bytree,
@@ -136,8 +127,13 @@ class model_trainer:
                         one_drop=one_drop, skip_drop=skip_drop, random_state=42)
         matthews_corrcoef,f2_score = model_trainer.classification_metrics(clf,X_train_data,y_train_data)
         return matthews_corrcoef,f2_score
+        
+    def classification_metrics(clf,X_train_data,y_train_data):
+        matthews_corrcoef_score = cross_val_score(clf, X_train_data, y_train_data, cv=5, scoring= make_scorer(matthews_corrcoef)).mean()
+        f2_score = cross_val_score(clf, X_train_data, y_train_data, cv=5, scoring=make_scorer(fbeta_score, beta=2, average='macro')).mean()
+        return matthews_corrcoef_score, f2_score
 
-    def initialize_model_training(self,filepath):
+    def initialize_model_training(self,folderpath,filepath):
         self.log_writer.log(self.file_object, 'Start initializing objectives required for model training')
         self.filepath = filepath
         objectives = [model_trainer.rf_objective, model_trainer.lr_objective, model_trainer.dt_objective, 
@@ -154,7 +150,7 @@ class model_trainer:
             pd.Series(name='train_matthews_corrcoef'), pd.Series(name='val_matthews_corrcoef'), pd.Series(name='train_f2_score'),
             pd.Series(name='val_f2_score'), pd.Series(name='train_val_matthews_corrcoef'), pd.Series(name='test_matthews_corrcoef'), 
             pd.Series(name='train_val_f2_score'),pd.Series(name='test_f2_score')], axis=1)
-            results.to_csv(filepath, mode='w',index=False)
+            results.to_csv(folderpath+filepath, mode='w',index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f'Fail to create initial csv file of results from model training with the following error: {e}')
             raise Exception()
@@ -266,7 +262,7 @@ class model_trainer:
             raise Exception()
         self.log_writer.log(self.file_object, f'Finish model training on {type(clf).__name__} for {n_features} features with {resampling} resampling and {clustering} clustering')
 
-    def store_tuning_results(self,col_selected,num_features,model_name,best_params,resampling_yes_no, clustering_yes_no, train_matthews_corrcoef,val_matthews_corrcoef,train_f2_score,val_f2_score,train_val_matthews_corrcoef_score,test_matthews_corrcoef_score,train_val_f2_score,test_f2_score,filepath,n_features):
+    def store_tuning_results(self,col_selected,num_features,model_name,best_params,resampling_yes_no, clustering_yes_no, train_matthews_corrcoef,val_matthews_corrcoef,train_f2_score,val_f2_score,train_val_matthews_corrcoef_score,test_matthews_corrcoef_score,train_val_f2_score,test_f2_score,folderpath,filepath,n_features):
         self.log_writer.log(self.file_object, f'Start appending results from model training for {n_features} features')
         try:
             results = pd.concat([pd.Series(col_selected, name='column_list'), pd.Series(num_features, name='num_features'), 
@@ -280,24 +276,22 @@ class model_trainer:
                                 pd.Series(test_matthews_corrcoef_score, name='test_matthews_corrcoef'),
                                 pd.Series(train_val_f2_score, name='train_val_f2_score'),
                                 pd.Series(test_f2_score, name='test_f2_score'),], axis=1)
-            results.to_csv(filepath, mode='a',header=False, index=False)
+            results.to_csv(folderpath+filepath, mode='a',header=False, index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f'Appending results from model training for {n_features} features failed with the following error: {e}')
             raise Exception()
         self.log_writer.log(self.file_object, f'Finish appending results from model training for {n_features} features')
 
-    def best_model(self, filepath, bestresultpath):
+    def best_model(self, folderpath, filepath, bestresultpath, threshold):
         self.log_writer.log(self.file_object, f'Start determining best configuration to use for saving models')
-        self.filepath = filepath
-        self.bestresultpath = bestresultpath
         try:
-            results = pd.read_csv(self.filepath).sort_values(by='test_matthews_corrcoef',ascending=False)
-            best_models = results[(np.abs(results['train_val_matthews_corrcoef'] - results['test_matthews_corrcoef'])<0.05) & (np.abs(results['train_val_f2_score'] - results['test_f2_score'])<0.05)].reset_index(drop=True)
+            results = pd.read_csv(folderpath+filepath).sort_values(by='test_matthews_corrcoef',ascending=False)
+            best_models = results[(np.abs(results['train_val_matthews_corrcoef'] - results['test_matthews_corrcoef'])<threshold) & (np.abs(results['train_val_f2_score'] - results['test_f2_score'])<threshold)].reset_index(drop=True)
             final_models = best_models[(best_models['test_matthews_corrcoef'] == best_models['test_matthews_corrcoef'].max()) & (best_models['test_f2_score'] == best_models['test_f2_score'].max())].sort_values(by=['num_features','resampling_indicator','clustering_indicator'])
             # If no model performs best for both metrics, then pick the model with the highest matthews correlation coefficient on the test set
             if len(final_models) == 0:
                 final_models = best_models[(best_models['test_f2_score'] == best_models['test_f2_score'].max())].sort_values(by=['num_features','resampling_indicator','clustering_indicator'])
-            pd.DataFrame(final_models, columns = final_models.columns).to_csv(self.bestresultpath,index=False)
+            pd.DataFrame(final_models, columns = final_models.columns).to_csv(folderpath+bestresultpath,index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f'Fail to determine best configuration to use for saving models with the following error: {e}')
             raise Exception()
@@ -357,7 +351,20 @@ class model_trainer:
         self.log_writer.log(self.file_object, f'Finish performing scaling data on train and test set')
         return X_train_scaled, X_test_scaled
 
-    def train_overall_model(self, X_train_sub, X_test_sub, y_train_data, y_test_data, model, final_result, name_model):
+    def learning_curve_plot(self,folderpath, train_size, train_score_m, test_score_m):
+        fig1, ax1 = plt.subplots()
+        ax1.plot(train_size, train_score_m, 'o-', color="b")
+        ax1.plot(train_size, test_score_m, 'o-', color="r")
+        ax1.legend(('Training score', 'Test score'), loc='best')
+        ax1.set_xlabel("Training Samples")
+        ax1.set_ylabel("F2 score")
+        ax1.set_title("Learning Curve Analysis (CV=5)")
+        ax1.grid()
+        ax1.annotate(np.round(train_score_m[-1],4),(train_size[-1]-50,train_score_m[-1]+0.05))
+        ax1.annotate(np.round(test_score_m[-1],4),(train_size[-1]-50,test_score_m[-1]-0.05))
+        plt.savefig(folderpath+'Learning_Curve_Analysis.png')
+
+    def train_overall_model(self, X_train_sub, X_test_sub, y_train_data, y_test_data, model, final_result, name_model, folderpath):
         self.log_writer.log(self.file_object, f'Start training and saving the {name_model} model')
         try:
             X_sub = pd.concat([X_train_sub, X_test_sub]).reset_index(drop=True)
@@ -366,44 +373,36 @@ class model_trainer:
             model.fit(X_sub,y_sub)
             ConfusionMatrixDisplay.from_predictions(y_sub, model.predict(X_sub)).plot()
             plt.title('Overall confusion matrix')
-            plt.savefig('Intermediate_Train_Results/Overall_Confusion_Matrix.png')
+            plt.savefig(folderpath+'Overall_Confusion_Matrix.png')
             report = classification_report(y_sub, model.predict(X_sub), output_dict=True)
             f_beta_results = pd.Series([fbeta_score(y_sub, model.predict(X_sub), average=None, beta=2)[0],fbeta_score(y_sub, model.predict(X_sub), average=None, beta=2)[1],
             fbeta_score(y_sub, model.predict(X_sub), average='micro', beta=2),fbeta_score(y_sub, model.predict(X_sub), average='macro', beta=2),
             fbeta_score(y_sub, model.predict(X_sub), average='weighted', beta=2)], name='f2_score', index =['-1', '1', 'accuracy', 'macro avg', 'weighted avg'])
-            pd.concat([pd.DataFrame(report).transpose(),f_beta_results],axis=1).to_csv('Intermediate_Train_Results/' + name_model + '_Classification_Report.csv')
+            pd.concat([pd.DataFrame(report).transpose(),f_beta_results],axis=1).to_csv(folderpath + name_model + '_Classification_Report.csv')
             train_size, train_score, test_score = learning_curve(estimator=model, X=X_sub, y=y_sub, cv=10, scoring=make_scorer(fbeta_score, beta=2))
             train_score_m = np.mean(np.abs(train_score), axis=1)
             test_score_m = np.mean(np.abs(test_score), axis=1)
-            fig1, ax1 = plt.subplots()
-            ax1.plot(train_size, train_score_m, 'o-', color="b")
-            ax1.plot(train_size, test_score_m, 'o-', color="r")
-            ax1.legend(('Training score', 'Test score'), loc='best')
-            ax1.set_xlabel("Training Samples")
-            ax1.set_ylabel("F2 score")
-            ax1.set_title("Learning Curve Analysis (CV=10)")
-            ax1.grid()
-            ax1.annotate(np.round(train_score_m[-1],4),(train_size[-1]-50,train_score_m[-1]+0.05))
-            ax1.annotate(np.round(test_score_m[-1],4),(train_size[-1]-50,test_score_m[-1]-0.05))
-            plt.savefig('Intermediate_Train_Results/Learning_Curve_Analysis.png')
+            self.learning_curve_plot(folderpath, train_size, train_score_m, test_score_m)
         except Exception as e:
             self.log_writer.log(self.file_object, f'Training and saving the {name_model} model failed with the following error: {e}')
             raise Exception()
         self.log_writer.log(self.file_object, f'Finish training and saving the {name_model} model')
         return model
 
-    def train_model_and_hyperparameter_tuning(self, train_data, test_data, train_output, test_output, filepath, bestresultpath):
+    def train_model_and_hyperparameter_tuning(self, train_data, test_data, train_output, test_output, folderpath, filepath, bestresultpath, threshold):
         self.log_writer.log(self.file_object, 'Start model training and hyperparameter tuning')
         self.train_data = train_data
         self.test_data = test_data
         self.train_output = train_output
         self.test_output = test_output
+        self.folderpath = folderpath
         self.filepath = filepath
         self.bestresultpath = bestresultpath
+        self.threshold = threshold
         optuna.logging.set_verbosity(optuna.logging.ERROR)
-        objectives, selectors = self.initialize_model_training(self.filepath)
-        gaussian_variables = list(pd.read_csv('Intermediate_Train_Results/Gaussian_columns.csv')['Variable'])
-        non_gaussian_variables = list(pd.read_csv('Intermediate_Train_Results/Non_gaussian_columns.csv')['Variable'])
+        objectives, selectors = self.initialize_model_training(self.folderpath,self.filepath)
+        gaussian_variables = list(pd.read_csv(self.folderpath+'Gaussian_columns.csv')['Variable'])
+        non_gaussian_variables = list(pd.read_csv(self.folderpath+'Non_gaussian_columns.csv')['Variable'])
         X_train_scaled, X_test_scaled = self.data_scaling_train_test(self.train_data, gaussian_variables, self.test_data, non_gaussian_variables)
         X_train_res, y_train_res = self.resample_data(self.train_data, self.train_output)
         X_train_res_scaled, X_test_res_scaled = self.data_scaling_train_test(X_train_res, gaussian_variables, self.test_data, non_gaussian_variables)
@@ -448,9 +447,9 @@ class model_trainer:
                             test_matthews_corrcoef_score, train_val_f2_score, test_f2_score, resampling, clustering)                            
             self.store_tuning_results(col_selected,num_features,model_name,best_params, resampling_yes_no, clustering_yes_no, 
             train_matthews_corrcoef,val_matthews_corrcoef,train_f2_score, val_f2_score, train_val_matthews_corrcoef_score,test_matthews_corrcoef_score,
-            train_val_f2_score, test_f2_score, self.filepath,n_features)
+            train_val_f2_score, test_f2_score, self.folderpath, self.filepath,n_features)
         
-        final_result = self.best_model(self.filepath, self.bestresultpath)
+        final_result = self.best_model(self.folderpath, self.filepath, self.bestresultpath, self.threshold)
         name_model = final_result['model_name'].values[0]
         num_features = final_result['num_features'].values[0]
         resampling = final_result['resampling_indicator'].values[0]
@@ -474,6 +473,6 @@ class model_trainer:
             X_test_cluster_data, y_test_data = self.scale_vs_non_scale_data(model,X_test_scaled_cluster_sub,X_test_cluster_sub,y_test_data) 
             X_train_sub = pd.concat([X_train_cluster_data.iloc[:,:-1], pd.get_dummies(X_train_cluster_data['cluster'], drop_first=True)],axis=1)
             X_test_sub = pd.concat([X_test_cluster_data.iloc[:,:-1], pd.get_dummies(X_test_cluster_data['cluster'], drop_first=True)],axis=1)
-        trained_model = self.train_overall_model(X_train_sub, X_test_sub, y_train_data, y_test_data, model, final_result, name_model)
+        trained_model = self.train_overall_model(X_train_sub, X_test_sub, y_train_data, y_test_data, model, final_result, name_model, self.folderpath)
         pkl.dump(trained_model,open('Saved_Models/'+name_model+'_'+resampling+'_resampling_'+clustering+'_clustering.pkl','wb'))
         self.log_writer.log(self.file_object, 'Finish model training and hyperparameter tuning')
