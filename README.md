@@ -106,7 +106,13 @@ If you prefer to deploy this project on your local machine system, the steps for
 3. Open MySQL in your local machine system and create a new database name of your choice with the following syntax: <b>CREATE DATABASE db_name;</b>
 - Note that you will need to install MySQL if not available in your local system: https://dev.mysql.com/downloads/windows/installer/8.0.html
   
-4. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: logins = {"host": <host_name>, "user": <user_name>, "password": <password>, "dbname": <new_local_database_name>}. 
+4. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: 
+```
+logins = {"host": <host_name>, 
+          "user": <user_name>, 
+          "password": <password>, 
+          "dbname": <new_local_database_name>} 
+```
 - For security reasons, this file needs to be stored in private.
   
 5. Open anaconda prompt and create a new environment with the following syntax: <b>conda create -n myenv python=3.9.10 anaconda</b>
@@ -139,7 +145,13 @@ Docker Desktop needs to be installed into your local system, before proceeding w
 
 2. Empty the files stored inside Training_Logs and Prediction_Logs folder.  
   
-3. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: logins = {"host": <host_name>, "user": <user_name>, "password": <password>, "dbname": <default_database_name>}. 
+3. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: 
+```
+logins = {"host": <host_name>, 
+          "user": <user_name>, 
+          "password": <password>, 
+          "dbname": <default_database_name>} 
+```
 - For security reasons, this file needs to be stored in private.
   
 4. Create a file named Dockerfile with the following commands:
