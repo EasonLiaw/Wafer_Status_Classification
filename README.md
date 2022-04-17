@@ -40,7 +40,7 @@ Note that all steps mentioned above have been logged accordingly for future refe
 
 **Project Folder Structure**
 ---
-The following points below summarizes the use of every folder available for this project:
+The following points below summarizes the use of every file/folder available for this project:
 1. Application_Logger: Helper module for logging model training and prediction process
 2. Archive_Prediction_Data: Stores bad quality prediction csv files that have been used previously for model prediction
 3. Archive_Training_Data: Stores bad quality training csv files that have been used previously for model training
