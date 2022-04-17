@@ -21,6 +21,14 @@ In addition, schema of datasets for training and prediction is provided in .json
 - **Streamlit documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 - **Optuna documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 
+**Project Architecture Summary**
+---
+The following diagram below summarizes the structure for this project:
+
+![image](https://user-images.githubusercontent.com/34255556/163706571-80402b65-ab0e-4d6b-a8be-f9b2e6bf3462.png)
+
+Note that all steps mentioned above have been logged accordingly for future reference and easy maintenance, which are stored in <b>Training_Logs</b> and <b>Prediction_Logs</b> folders. Any bad quality data identified for model training and model prediction will be archived accordingly in <b>Archive_Training_Data</b> and <b>Archive_Prediction_Data</b> folders.
+
 **Project Folder Structure**
 ---
 The following points below summarizes the use of every folder available for this project:
@@ -50,14 +58,6 @@ The following points below summarizes the use of every folder available for this
 24. schema_prediction.json: JSON file that contains database schema for model prediction
 25. schema_training.json: JSON file that contains database schema for model training
 26. setup.sh : Additional file for Heroku model deployment
-
-**Project Architecture Summary**
----
-The following diagram below summarizes the structure for this project:
-
-![image](https://user-images.githubusercontent.com/34255556/163706571-80402b65-ab0e-4d6b-a8be-f9b2e6bf3462.png)
-
-Note that all steps mentioned above have been logged accordingly for future reference and easy maintenance, which are stored in <b>Training_Logs</b> and <b>Prediction_Logs</b> folders. Any bad quality data identified for model training and model prediction will be archived accordingly in <b>Archive_Training_Data</b> and <b>Archive_Prediction_Data</b> folders.
 
 The following sections below explains the three main approaches that can be used for model deployment in this project:
 1. <b>Cloud Platform (Heroku)</b>
