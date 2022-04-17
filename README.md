@@ -161,7 +161,7 @@ The following image below summarizes the confusion matrix from the final model t
 
 ![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/163699138-a8986e96-8d38-4921-950a-62ce43f57b26.png)
 
-From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (4 samples), as compared to false positives (195 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
+From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (6 samples), as compared to false positives (155 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
   
 ### 2. Best classification model configuration
 
