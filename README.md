@@ -26,7 +26,7 @@ In addition, schema of datasets for training and prediction is provided in .json
 For any given Machine Learning projects, CRISP-DM (Cross Industry Standard Practice for Data Mining) methodology is the most commonly adapted methodology used.
 The following diagram below represents a simple summary of the CRISP-DM methodology for this project:
 
-![image](https://user-images.githubusercontent.com/34255556/163707353-655c2c3c-3b49-4755-9f16-353738d4a17e.png)
+<img src="https://www.datascience-pm.com/wp-content/uploads/2018/09/crisp-dm-wikicommons.jpg" width="200" height="150">
 
 Note that an alternative version of this methodology, known as CRISP-ML(Q) (Cross Industry Standard Practice for Machine Learning and Quality Assurance) can also be used in this project. However, the model monitoring aspect is not used in this project, which can be considered for future use.
 
@@ -34,7 +34,7 @@ Note that an alternative version of this methodology, known as CRISP-ML(Q) (Cros
 ---
 The following diagram below summarizes the structure for this project:
 
-<img src="https://www.datascience-pm.com/wp-content/uploads/2018/09/crisp-dm-wikicommons.jpg" width="50" height="50">
+![image](https://user-images.githubusercontent.com/34255556/163707511-af9d7f8a-b28c-43aa-b259-aec7b4b0c062.png)
 
 Note that all steps mentioned above have been logged accordingly for future reference and easy maintenance, which are stored in <b>Training_Logs</b> and <b>Prediction_Logs</b> folders. Any bad quality data identified for model training and model prediction will be archived accordingly in <b>Archive_Training_Data</b> and <b>Archive_Prediction_Data</b> folders.
 
