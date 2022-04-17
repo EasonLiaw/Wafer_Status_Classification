@@ -197,7 +197,7 @@ Note that the results above may differ for every instance of project implementat
   
 ![Learning_Curve_Analysis](https://user-images.githubusercontent.com/34255556/163699431-659f64dd-8c00-4a51-9570-1082f3542971.png)
 
-From the diagram above, the gap between train and test F2 scores gradually decreases as number of training sample size increases. However, the gap between both scores still remain greater than 15% difference, which indicates that more training sample size can be collected to further reduce model overfitting.
+From the diagram above, the gap between train and test F2 scores (from 5-fold cross validation) gradually decreases as number of training sample size increases. However, the gap between both scores still remain greater than 15% difference, which indicates that more training sample size can be collected to further reduce model overfitting.
   
 **Legality**
 ---
