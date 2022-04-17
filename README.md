@@ -21,6 +21,36 @@ In addition, schema of datasets for training and prediction is provided in .json
 - **Streamlit documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 - **Optuna documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 
+**Project Folder Structure**
+---
+The following points below summarizes the use of every folder available for this project:
+1. Application_Logger: Helper module for logging model training and prediction process
+2. Archive_Prediction_Data: Stores good quality prediction csv files that have been used previously for model prediction
+3. Archive_Training_Data: Stores good quality training csv files that have been used previously for model training
+4. Bad_Prediction_Data: Stores bad quality prediction csv files that have been used previously for model prediction
+5. Bad_Training_Data: Stores bad quality training csv files that have been used previously for model training
+6. Good_Prediction_Data: Temporary folder for identifying good quality prediction csv files
+7. Good_Training_Data: Temporary folder for identifying good quality training csv files
+8. Intermediate_Pred_Results: Stores results from model prediction
+9. Intermediate_Train_Results: Stores additional information from model training process
+10. Model_Prediction_Modules: Helper modules for model prediction
+11. Model_Training_Modules: Helper modules for model training
+12. Prediction_Batch_Files: Stores csv batch files to be used for model prediction
+13. Prediction_Data_FromDB: Stores compiled data from SQL database for model prediction
+14. Prediction_Logs: Stores logging information from model prediction for future debugging and maintenance
+15. Saved_Models: Stores best models identified from model training process for model prediction
+16. Training_Batch_Files: Stores csv batch files to be used for model training
+17. Training_Data_FromDB: Stores compiled data from SQL database for model training
+18. Training_Logs: Stores logging information from model training for future debugging and maintenance
+19. Dockerfile: Additional file for Docker model deployment
+20. main.py: Main file for program execution
+21. Procfile: Additional file for Heroku model deployment
+22. README.md: Details summary of project for presentation
+23. requirements.txt: List of Python packages to install for model deployment
+24. schema_prediction.json: JSON file that contains database schema for model prediction
+25. schema_training.json: JSON file that contains database schema for model training
+26. setup.sh : Additional file for Heroku model deployment
+
 **Project Architecture Summary**
 ---
 The following diagram below summarizes the structure for this project:
