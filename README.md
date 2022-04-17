@@ -159,7 +159,7 @@ Docker Desktop needs to be installed into your local system, before proceeding w
 
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
 
-![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/162558419-622cb9d3-38af-461a-82ed-0d1807b4ae6d.png)
+![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/163699138-a8986e96-8d38-4921-950a-62ce43f57b26.png)
 
 From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (4 samples), as compared to false positives (195 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
   
@@ -167,17 +167,17 @@ From the image above, the classification model performs better for status of waf
 
 The following information below summarizes the configuration of the best model identified in this project:
 
-  - <b>Best model class identified</b>: Support Vector Machine Classifier
+  - <b>Best model class identified</b>: Extra Trees Classifier
 
-  - <b>Best model hyperparameters</b>: {'C': 1.3539306404416607, 'break_ties': False, 'cache_size': 200, 'class_weight': 'balanced', 'coef0': 0.0, 'decision_function_shape': 'ovr', 'degree': 3, 'gamma': 'scale', 'kernel': 'linear', 'max_iter': -1, 'probability': True, 'random_state': 42, 'shrinking': True, 'tol': 0.001, 'verbose': False}
+  - <b>Best model hyperparameters</b>: {'bootstrap': False, 'ccp_alpha': 0.021602078477013453, 'class_weight': 'balanced_subsample', 'criterion': 'gini', 'max_depth': None, 'max_features': 'auto', 'max_leaf_nodes': None, 'max_samples': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'n_estimators': 115, 'n_jobs': None, 'oob_score': False, 'random_state': 42, 'verbose': 0, 'warm_start': False}
 
-  - <b>Number of features selected</b>: 17
+  - <b>Number of features selected</b>: 10
 
-  - <b>List of features selected</b>: ['Sensor76', 'Sensor104', 'Sensor346', 'Sensor583', 'Sensor56', 'Sensor101', 'Sensor112', 'Sensor122', 'Sensor130', 'Sensor153', 'Sensor184', 'Sensor200', 'Sensor337', 'Sensor424', 1, 2, 3] (<b>Note that features 1, 2 and 3 represents the cluster number obtained and 0 values for features 1, 2 and 3 indicates a given record belongs to cluster 0</b>)
+  - <b>List of features selected</b>: ['Sensor56', 'Sensor101', 'Sensor104', 'Sensor112', 'Sensor130', 'Sensor153', 'Sensor184', 'Sensor337', 'Sensor346', 'Sensor424']
 
   - <b>Resampling</b>: No
   
-  - <b>Clustering</b>: Yes (4 clusters identified)
+  - <b>Clustering</b>: No
 
 Note that the results above may differ for every instance of project implementation.
 
@@ -185,11 +185,11 @@ Note that the results above may differ for every instance of project implementat
 
 The following information below summarizes the evaluation metrics from the best model identified in this project: 
 
-  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.2905
-  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2693
+  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.3330
+  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2921
   
-  - <b>F2-score (Train-val set)</b>: 0.6288
-  - <b>F2-score (Test set)</b>: 0.6422
+  - <b>F2-score (Train-val set)</b>: 0.6549
+  - <b>F2-score (Test set)</b>: 0.6476
 
 Note that the results above may differ for every instance of project implementation.
 
