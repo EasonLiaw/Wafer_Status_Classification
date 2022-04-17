@@ -21,6 +21,15 @@ In addition, schema of datasets for training and prediction is provided in .json
 - **Streamlit documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 - **Optuna documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 
+**CRISP-DM Methodology**
+---
+For any given Machine Learning projects, CRISP-DM (Cross Industry Standard Practice for Data Mining) methodology is the most commonly adapted methodology used.
+The following diagram below represents a simple summary of the CRISP-DM methodology for this project:
+
+![image](https://user-images.githubusercontent.com/34255556/163707353-655c2c3c-3b49-4755-9f16-353738d4a17e.png)
+
+Note that an alternative version of this methodology, known as CRISP-ML(Q) (Cross Industry Standard Practice for Machine Learning and Quality Assurance) can also be used in this project. However, the model monitoring aspect is not used in this project, which can be considered for future use.
+
 **Project Architecture Summary**
 ---
 The following diagram below summarizes the structure for this project:
