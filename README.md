@@ -24,22 +24,8 @@ In addition, schema of datasets for training and prediction is provided in .json
 **Project Architecture Summary**
 ---
 The following points below summarizes the structure for running this project:
-1. Validating the quality of batch files source (<b>Training_Batch_Files</b> folder) based on a set of customized validation rules for model training.
-2. Inserting good quality training data from batch files into MySQL database, which is hosted on Heroku platform.
-3. Export compiled data from previous step into a single .csv file in <b>Training_Data_FromDB</b> folder for data preprocessing.
-4. Preprocess data using various feature engineering techniques, while performing initial Exploratory Data Analysis (EDA). Note that results from certain stages of data preprocessing are saved in <b>Intermediate_Train_Results</b> folder for reference.
-5. Perform resampling using <b>SMOTETomek</b> on the training dataset seperately after data preprocessing.
-6. The following set of configurations are also tested for various number of features selected from using <b>F-classification</b> on various models along with hyperparameter tuning:
-- Resampling vs No resampling
-- Clustering vs No clustering
-7. Results from previous steps are stored in .csv file named as <b>"Model_results_by_num_features.csv"</b>
-8. Best model is identified from a set of evaluation criteria and the best model is retrained on the entire dataset before saving it into .pkl file under <b>Saved_Models</b> folder.
-9. Validating the quality of batch files source (<b>Prediction_Batch_Files</b> folder) based on a set of customized validation rules for model prediction.
-10. Inserting good quality prediction data from batch files into MySQL database.
-11. Export compiled data from previous step into a single .csv file in <b>Prediction_Data_FromDB</b> folder for data preprocessing.
-12. Preprocess data using the same feature engineering techniques identified in Step 4.
-13. Perform either resampling or clustering or both on the preprocessed data from previous step based on configurations of best model identified from step 8.
-14. Perform model prediction using best models saved from step 8 and results from model prediction are saved into <b>Intermediate_Pred_Results</b> folder.
+
+![image](https://user-images.githubusercontent.com/34255556/163706571-80402b65-ab0e-4d6b-a8be-f9b2e6bf3462.png)
 
 Note that all steps mentioned above have been logged accordingly for future reference and easy maintenance, which are stored in <b>Training_Logs</b> and <b>Prediction_Logs</b> folders. Any bad quality data identified for model training and model prediction will be archived accordingly in <b>Archive_Training_Data</b> and <b>Archive_Prediction_Data</b> folders.
 
