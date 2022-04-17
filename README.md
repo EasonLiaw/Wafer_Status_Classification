@@ -23,7 +23,7 @@ In addition, schema of datasets for training and prediction is provided in .json
 
 **Project Architecture Summary**
 ---
-The following points below summarizes the structure for running this project:
+The following diagram below summarizes the structure for this project:
 
 ![image](https://user-images.githubusercontent.com/34255556/163706571-80402b65-ab0e-4d6b-a8be-f9b2e6bf3462.png)
 
