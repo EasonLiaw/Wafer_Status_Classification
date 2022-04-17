@@ -72,7 +72,13 @@ For replicating the steps required for running this project on your own Heroku a
 
 5. Select the ClearDB MySQL add-on and select the relevant pricing plan. (Note that I select Punch plan, which currently cost about $9.99 per month to increase storage capacity for this project.)
 
-6. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: logins = {"host": <host_name>, "user": <user_name>, "password": <password>, "dbname": <default_Heroku_database_name>}. 
+6. Add an additional Python file named as DBConnectionSetup.py that contains the following Python code structure: 
+'''
+  logins = {"host": <host_name>, 
+            "user": <user_name>, 
+            "password": <password>, 
+            "dbname": <default_Heroku_database_name>}
+'''
 - For security reasons, this file needs to be stored in private. I've also included a video reference link below for clear instructions on setup ClearDB MySQL for Heroku.
   
 [![Deploy MySQL Database into Heroku](https://i.ytimg.com/vi/Zcg71lxW-Yo/hqdefault.jpg)](https://www.youtube.com/watch?v=Zcg71lxW-Yo&ab_channel=CodeJava)
