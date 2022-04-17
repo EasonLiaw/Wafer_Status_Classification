@@ -33,10 +33,10 @@ Note that all steps mentioned above have been logged accordingly for future refe
 ---
 The following points below summarizes the use of every folder available for this project:
 1. Application_Logger: Helper module for logging model training and prediction process
-2. Archive_Prediction_Data: Stores good quality prediction csv files that have been used previously for model prediction
-3. Archive_Training_Data: Stores good quality training csv files that have been used previously for model training
-4. Bad_Prediction_Data: Stores bad quality prediction csv files that have been used previously for model prediction
-5. Bad_Training_Data: Stores bad quality training csv files that have been used previously for model training
+2. Archive_Prediction_Data: Stores bad quality prediction csv files that have been used previously for model prediction
+3. Archive_Training_Data: Stores bad quality training csv files that have been used previously for model training
+4. Bad_Prediction_Data: Temporary folder for identifying bad quality prediction csv files
+5. Bad_Training_Data: Temporary folder for identifying bad quality prediction csv files
 6. Good_Prediction_Data: Temporary folder for identifying good quality prediction csv files
 7. Good_Training_Data: Temporary folder for identifying good quality training csv files
 8. Intermediate_Pred_Results: Stores results from model prediction
