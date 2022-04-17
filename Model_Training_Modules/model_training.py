@@ -379,7 +379,7 @@ class model_trainer:
             fbeta_score(y_sub, model.predict(X_sub), average='micro', beta=2),fbeta_score(y_sub, model.predict(X_sub), average='macro', beta=2),
             fbeta_score(y_sub, model.predict(X_sub), average='weighted', beta=2)], name='f2_score', index =['-1', '1', 'accuracy', 'macro avg', 'weighted avg'])
             pd.concat([pd.DataFrame(report).transpose(),f_beta_results],axis=1).to_csv(folderpath + name_model + '_Classification_Report.csv')
-            train_size, train_score, test_score = learning_curve(estimator=model, X=X_sub, y=y_sub, cv=10, scoring=make_scorer(fbeta_score, beta=2))
+            train_size, train_score, test_score = learning_curve(estimator=model, X=X_sub, y=y_sub, cv=5, scoring=make_scorer(fbeta_score, beta=2))
             train_score_m = np.mean(np.abs(train_score), axis=1)
             test_score_m = np.mean(np.abs(test_score), axis=1)
             self.learning_curve_plot(folderpath, train_size, train_score_m, test_score_m)
