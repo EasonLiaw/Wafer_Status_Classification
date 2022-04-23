@@ -1,3 +1,3 @@
-2022-04-15/13:33:18		Start storing best models for model deployment
-2022-04-15/13:33:18		ExtraTreesClassifier model used to make predictions successfully
-2022-04-15/13:33:18		Finish making predictions using best models for model deployment
+2022-04-23/09:47:33		Start storing best models for model deployment
+2022-04-23/09:47:33		LogisticRegression model used to make predictions successfully
+2022-04-23/09:47:33		Finish making predictions using best models for model deployment

@@ -226,8 +226,7 @@ class pred_Preprocessor:
         data = self.outlier_capping('gaussian', data)
         data = self.drop_constant_variance(data)
         data = self.gaussian_transform(data, pd.read_csv('Intermediate_Train_Results/Best_Transformation_Non_Gaussian.csv',index_col=False))
-        data_sub = data[column_list]
-        data_sub = pd.concat([index,data_sub],axis=1)
+        data = pd.concat([index,data],axis=1)
         self.log_writer.log(self.file_object, 'End of data preprocessing')
-        return data_sub
+        return data, column_list
 

@@ -454,34 +454,6 @@ class train_Preprocessor:
             raise Exception()
         self.log_writer.log(self.file_object, 'Finish testing for gaussian transformation on non-gaussian columns')
         return X_train_transformed, X_test_transformed
-
-    def remove_strong_correlated_features(self, X_train, X_test, filename):
-        '''
-            Method Name: remove_strong_correlated_features
-            Description: This method removes features that are very strongly correlated (more than 0.8) with each other.
-            Output: A pandas dataframe, where variables that are very strongly correlated with each other are removed.
-            In addition, variables that were removed due to very strong correlation with other features are stored in a csv file 
-            named as "Columns_Removed.csv" (One csv file for gaussian transformed data and another csv file for 
-            non gaussian transformed data) 
-            On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
-        '''
-        self.log_writer.log(self.file_object, "Start removing highly correlated features with one another")
-        try:
-            cor_remover = fes.DropCorrelatedFeatures(threshold=0.8)
-            X_train = cor_remover.fit_transform(X_train)
-            X_test = cor_remover.transform(X_test)
-            result = pd.concat([pd.Series(list(cor_remover.features_to_drop_), name='Columns_Removed'), pd.Series(["Highly correlated with other features"]*len(list(cor_remover.features_to_drop_)), name='Reason')], axis=1)
-            result.to_csv(self.result_dir + filename, index=False, mode='a+', header=False)
-            self.log_writer.log(self.file_object, f"Following set of features were removed due to having very high correlation with other features: {cor_remover.features_to_drop_}")
-        except Exception as e:
-            self.log_writer.log(self.file_object, f"Fail to remove features that are highly correlated with other features with the following error: {e}")
-            raise Exception()
-        self.log_writer.log(self.file_object, "Finish removing highly correlated features with one another")
-        return X_train, X_test
     
     def data_preprocessing(self, start_path, end_path_for_transform, col_remove, target_col):
         '''
@@ -520,7 +492,6 @@ class train_Preprocessor:
         X_train, X_test = self.drop_constant_variance(X_train, X_test, self.end_path_for_transform)
         gaussian_columns, non_gaussian_columns = self.check_gaussian(X_train)
         X_train_transformed, X_test_transformed = self.gaussian_transform_test(X_train, X_test, non_gaussian_columns)
-        X_train_transformed, X_test_transformed = self.remove_strong_correlated_features(X_train_transformed, X_test_transformed, self.end_path_for_transform)
         gaussian_columns, non_gaussian_columns = self.check_gaussian(X_train_transformed)
         pd.Series(gaussian_columns, name='Variable').to_csv(self.result_dir+'Gaussian_columns.csv',index=False)
         pd.Series(non_gaussian_columns, name='Variable').to_csv(self.result_dir+'Non_gaussian_columns.csv',index=False)
