@@ -7,7 +7,7 @@
 
 In electronics, a wafer (also called a slice or substrate) is a thin slice of semiconductor used for the fabrication of integrated circuits. Monitoring working conditions of these wafers present its challenges of having additional resources required for manual monitoring with insights and decisions that need to be made quickly for replacing wafers that are not in good working conndition when required. Using IIOT (Industrial Internet of Things) helps to overcome this challenge through a collection of real-time data from multiple sensors. 
 
-Thus, the main goal of this project is to design a machine learning model that predicts whether a wafer is in a good working condition or not based on inputs from 590 different sensors for every wafer. The quality of wafer sensors can be classified into two different categories: -1 for "good wafer" and +1 for "bad wafer".
+Thus, the main goal of this project is to design a machine learning model that predicts whether a wafer is in a good working condition or not based on inputs from 590 different sensors for every wafer. The quality of wafer sensors can be classified into two different categories: 0 for "good wafer" and 1 for "bad wafer".
 
 Dataset is provided in .csv format by client under <b>Training_Batch_Files</b> folder for model training, while dataset under <b>Prediction_Batch_Files</b> folder will be used for predicting quality of wafer sensors.
 
@@ -205,10 +205,9 @@ logins = {"host": <host_name>,
 ### 1. Overall confusion matrix
 
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
+![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/174515490-e2c5e747-7f4e-41a5-bb7c-717007382f1b.png)
 
-![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/164873427-a163dbff-6090-4001-8b36-9e81931e50d9.png)
-
-From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (8 samples), as compared to false positives (211 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
+From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (6 samples), as compared to false positives (170 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
   
 ### 2. Best classification model configuration
 
@@ -216,11 +215,11 @@ The following information below summarizes the configuration of the best model i
 
   - <b>Best model class identified</b>: Logistic Regression
 
-  - <b>Best model hyperparameters</b>: {'C': 0.18172635150315206, 'class_weight': 'balanced', 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': None, 'max_iter': 1000000, 'multi_class': 'auto', 'n_jobs': -1, 'penalty': 'l2', 'random_state': 42, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}
+  - <b>Best model hyperparameters</b>: {'C': 0.2088851847576874, 'class_weight': 'balanced', 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': None, 'max_iter': 1000000, 'multi_class': 'auto', 'n_jobs': -1, 'penalty': 'l2', 'random_state': 42, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}
 
-  - <b>Number of features selected</b>: 19
+  - <b>Number of features selected</b>: 26
 
-  - <b>List of features selected</b>: ['Sensor56', 'Sensor101', 'Sensor104', 'Sensor112', 'Sensor130', 'Sensor153', 'Sensor184', 'Sensor200', 'Sensor288', 'Sensor320', 'Sensor324', 'Sensor336', 'Sensor337', 'Sensor340', 'Sensor346', 'Sensor407', 'Sensor424', 'Sensor426', 'Sensor456']
+  - <b>List of features selected</b>: ['Sensor56', 'Sensor76', 'Sensor101', 'Sensor104', 'Sensor112', 'Sensor122', 'Sensor126', 'Sensor130', 'Sensor131', 'Sensor184', 'Sensor269', 'Sensor292', 'Sensor320', 'Sensor324', 'Sensor337', 'Sensor346', 'Sensor384', 'Sensor407', 'Sensor419', 'Sensor424', 'Sensor434', 'Sensor456', 'Sensor511', 'Sensor518', 'Sensor541', 'Sensor583']
   
   - <b>Clustering</b>: No
 
@@ -230,20 +229,20 @@ Note that the results above may differ for every instance of project implementat
 
 The following information below summarizes the evaluation metrics from the best model identified in this project: 
 
-  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.2781
-  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2488
+  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.2747
+  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2718
   
-  - <b>Recall score (Train-val set)</b>: 0.7920
-  - <b>Recall score (Test set)</b>: 0.7578
+  - <b>Recall score (Train-val set)</b>: 0.7800
+  - <b>Recall score (Test set)</b>: 0.7702
 
 Note that the results above may differ for every instance of project implementation.
 
 ### 4. Learning Curve Analysis
   
-![Learning_Curve_Analysis](https://user-images.githubusercontent.com/34255556/164873442-7f6bebec-71d5-4833-b4fa-4e7e8d5e8507.png)
+![Learning_Curve_Analysis](https://user-images.githubusercontent.com/34255556/174516293-9df8d219-8173-4a9c-9b8d-cc262ef2993d.png)
 
 From the diagram above, the gap between train and test recall scores (from 5-fold cross validation) gradually decreases as number of training sample size increases.
-Although the gap between both scores are less than 5%, both scores have not yet stabilize over a number of training samples. This indicates that more data can still be collected to ensure less risk of overfitting.
+Although the gap between both scores are less than 10%, both scores have not yet stabilize over a number of training samples. This indicates that more data can still be collected to ensure less risk of overfitting.
   
 **Legality**
 ---
