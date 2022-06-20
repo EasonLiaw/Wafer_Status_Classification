@@ -113,7 +113,7 @@ For replicating the steps required for running this project on your own Heroku a
 <img src="https://user-images.githubusercontent.com/34255556/160223941-2aacc3ca-4ab5-4996-be46-f2d553933dd5.png" width="600" height="300">
 
 8. After successful model deployment, open the app and you will see the following interface designed using Streamlit:
-<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
 9. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
 <img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
@@ -153,7 +153,7 @@ logins = {"host": <host_name>,
 If you encounter the TomlDecodeError, ensure that the <b>config.toml</b> file is removed from the directory where Streamlit is installed to prevent TomlDecodeError. The following link explains more details about the error that you might encounter: https://stackoverflow.com/questions/59811357/how-to-solve-toml-decoder-tomldecodeerror-key-group-not-on-a-line-by-itself-l
 
 9. A new browser will open after successfully running the streamlit app with the following interface:
-<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
 10. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
 <img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
@@ -191,7 +191,7 @@ logins = {"host": <host_name>,
 - Note that port 8501 is required to run streamlit on Docker.
 
 7. Open a new browser with the following link shown on the image above, which will open after successfully running the streamlit app with the following interface:
-<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
 8. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
 <img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
