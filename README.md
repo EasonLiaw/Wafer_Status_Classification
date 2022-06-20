@@ -115,8 +115,9 @@ For replicating the steps required for running this project on your own Heroku a
 8. After successful model deployment, open the app and you will see the following interface designed using Streamlit:
 <img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
-9. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
-<img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
+9. From the image above, click on Data Preparation first for initializing data ingestion into MySQL, followed by Preprocessing & Model_Training for training models, followed by Data Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
+<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
+<img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
   
 <b>Important Note: Using "free" dynos on Heroku app only allows the app to run for a maximum of 30 minutes. Since the model training and prediction process takes a long time, consider changing the dynos type to "hobby" for unlimited time, which cost about $7 per month per dyno. You may also consider changing the dynos type to Standard 1X/2X for enhanced app performance.</b>
 
