@@ -1,16 +1,11 @@
+'''
+Author: Liaw Yi Xian
+Last Modified: 20th June 2022
+'''
 import warnings
 warnings.filterwarnings('ignore')
 import pandas as pd
 from Application_Logger.logger import App_Logger
-import numpy as np
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
-import scipy.stats as st
-import feature_engine.imputation as fei
-import feature_engine.selection as fes
-import feature_engine.outliers as feo
-import feature_engine.transformation as fet
-from sklearn.ensemble import RandomForestClassifier
 import pickle as pkl
 
 class pred_Preprocessor:
@@ -19,11 +14,6 @@ class pred_Preprocessor:
             Method Name: __init__
             Description: This method initializes instance of Preprocessor class
             Output: None
-            On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.file_object = file_object
         self.log_writer = App_Logger()
@@ -34,10 +24,6 @@ class pred_Preprocessor:
             Description: This method extracts data from a csv file and converts it into a pandas dataframe.
             Output: A pandas dataframe
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start reading compiled data from database")
         self.path = path
@@ -45,7 +31,7 @@ class pred_Preprocessor:
             data = pd.read_csv(path)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to read compiled data from database with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to read compiled data from database with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish reading compiled data from database")
         return data
 
@@ -56,10 +42,6 @@ class pred_Preprocessor:
             Output: A pandas DataFrame after removing duplicated rows. In addition, duplicated records that are removed will 
             be stored in a separate csv file labeled "Duplicated_Records_Removed.csv"
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start handling duplicated rows in the dataset")
         self.data = data
@@ -71,7 +53,7 @@ class pred_Preprocessor:
                 self.data = self.data.drop_duplicates(ignore_index=True)
             except Exception as e:
                 self.log_writer.log(self.file_object, f"Fail to remove duplicated rows with the following error: {e}")
-                raise Exception()
+                raise Exception(f"Fail to remove duplicated rows with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish handling duplicated rows in the dataset")
         return self.data
 
@@ -81,10 +63,6 @@ class pred_Preprocessor:
             Description: This method imputes missing values based on classified method from classify_impute_method function.
             Output: A pandas dataframe after imputing missing values.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start imputing missing values in the dataset")
         try:
@@ -103,7 +81,7 @@ class pred_Preprocessor:
                     self.log_writer.log(self.file_object, f"The following columns have been imputed using iterative strategy: {column_list}")
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to impute missing values with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to impute missing values with the following error: {e}")
         return X
 
     def outlier_capping(self, method, X):
@@ -114,10 +92,6 @@ class pred_Preprocessor:
             respectively.
             Output: A pandas dataframe, where outlier values are capped at lower bound/upper bound.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start capping outliers using {method} method")
         try:
@@ -128,7 +102,7 @@ class pred_Preprocessor:
             X = winsorizer.transform(X)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to cap outliers using {method} method with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to cap outliers using {method} method with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish capping outliers using {method} method") 
         return X
 
@@ -140,10 +114,6 @@ class pred_Preprocessor:
             that were removed due to constant variance are stored in a csv file named as "Columns_Removed.csv"
             (One csv file for gaussian transformed data and another csv file for non gaussian transformed data)
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start removing features with constant variance")
         try:
@@ -152,7 +122,7 @@ class pred_Preprocessor:
             self.log_writer.log(self.file_object, f"Following set of features were removed due to having constant variance: {selector.features_to_drop_}")
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to remove features with constant variance with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to remove features with constant variance with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish removing features with constant variance")
         return X
 
@@ -163,10 +133,6 @@ class pred_Preprocessor:
             transformation using identified methods from gaussian_transform_test function.
             Output: A pandas dataframe, where relevant non-gaussian variables are transformed into gaussian variables
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start transforming non gaussian columns to gaussian columns")
         try:
@@ -187,7 +153,7 @@ class pred_Preprocessor:
                 self.log_writer.log(self.file_object, f'{type} transformation is applied to {variable_list} columns')
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to transform non-gaussian variables into gaussian variables with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to transform non-gaussian variables into gaussian variables with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish transforming non gaussian columns to gaussian columns")
         return X
     
@@ -197,15 +163,10 @@ class pred_Preprocessor:
             Description: This method performs all the data preprocessing tasks for the data.
             Output: A pandas dataframe, where all the data preprocessing tasks are performed.
             On Failure: Raise Exception
-
-            Written By: Raghav Pal
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, 'Start of data preprocessing')
         self.start_path = start_path
         self.best_result = best_result
-
         best_result_df = pd.read_csv(self.best_result,index_col=False)
         num_features = best_result_df['num_features'].values[0]
         column_list = best_result_df['column_list'].values[0].replace("'","").strip("][").split(', ')[:num_features]
