@@ -17,11 +17,14 @@ def main():
     """
     st.markdown(html_temp,unsafe_allow_html=True)
 
-    if st.button("Model Training"):
+    if st.button("Data Preparation"):
         with open("Training_Logs/Training_Main_Log.txt", 'a+') as file:
             trainvalidator = rawtraindatavalidation('sensordata', file, "Good_Training_Data/", "Bad_Training_Data/")
             folders = ['Good_Training_Data/','Bad_Training_Data/','Archive_Training_Data/','Training_Data_FromDB/','Intermediate_Train_Results/']
             trainvalidator.initial_data_preparation('schema_training.json',folders,"Training_Batch_Files",'Good_Training_Data/','Archive_Training_Data/','Training_Data_FromDB/Training_Data.csv') 
+        st.success('Data Preparation process is complete')
+
+    if st.button("Preprocessing & Model Training"):
         with open("Training_Logs/Training_Preprocessing_Log.txt", 'a+') as file:
             preprocessor = train_Preprocessor(file, 'Intermediate_Train_Results/')
             X_train, X_test, y_train, y_test = preprocessor.data_preprocessing('Training_Data_FromDB/Training_Data.csv', 'Columns_Drop_from_Original.csv','Wafer','Output')

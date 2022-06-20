@@ -1,3 +1,8 @@
+'''
+Author: Liaw Yi Xian
+Last Modified: 17th June 2022
+'''
+
 import warnings
 warnings.filterwarnings('ignore')
 import pandas as pd
@@ -17,13 +22,8 @@ class train_Preprocessor:
     def __init__(self, file_object, result_dir):
         '''
             Method Name: __init__
-            Description: This method initializes instance of Preprocessor class
+            Description: This method initializes instance of train_Preprocessor class
             Output: None
-            On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.file_object = file_object
         self.result_dir = result_dir
@@ -35,10 +35,6 @@ class train_Preprocessor:
             Description: This method extracts data from a csv file and converts it into a pandas dataframe.
             Output: A pandas dataframe
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start reading compiled data from database")
         self.path = path
@@ -46,7 +42,7 @@ class train_Preprocessor:
             data = pd.read_csv(path)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to read compiled data from database with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to read compiled data from database with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish reading compiled data from database")
         return data
 
@@ -55,13 +51,8 @@ class train_Preprocessor:
             Method Name: remove_irrelevant_columns
             Description: This method removes columns from a pandas dataframe, which are not relevant for analysis.
             Output: A pandas DataFrame after removing the specified columns. In addition, columns that are removed will be 
-            stored in a separate csv file labeled "Columns_Removed.csv" (One csv file for gaussian transformed data and 
-            another csv file for non gaussian transformed data)
+            stored in a separate csv file labeled "Columns_Drop_from_Original.csv"
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start removing irrelevant columns from the dataset")
         try:
@@ -70,7 +61,7 @@ class train_Preprocessor:
             result.to_csv(self.result_dir+'Columns_Drop_from_Original.csv', index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Irrelevant columns could not be removed from the dataset with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Irrelevant columns could not be removed from the dataset with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish removing irrelevant columns from the dataset")
         return data
 
@@ -81,10 +72,6 @@ class train_Preprocessor:
             Output: A pandas DataFrame after removing duplicated rows. In addition, duplicated records that are removed will 
             be stored in a separate csv file labeled "Duplicated_Records_Removed.csv"
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start handling duplicated rows in the dataset")
         if len(data[data.duplicated()]) == 0:
@@ -95,7 +82,7 @@ class train_Preprocessor:
                 data = data.drop_duplicates(ignore_index=True)
             except Exception as e:
                 self.log_writer.log(self.file_object, f"Fail to remove duplicated rows with the following error: {e}")
-                raise Exception()
+                raise Exception(f"Fail to remove duplicated rows with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish handling duplicated rows in the dataset")
         return data
     
@@ -105,10 +92,6 @@ class train_Preprocessor:
             Description: This method splits a pandas dataframe into two pandas objects, consist of features and target labels.
             Output: Two pandas/series objects consist of features and labels separately.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start separating the data into features and labels")
         try:
@@ -116,7 +99,7 @@ class train_Preprocessor:
             y = data[column]
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to separate features and labels with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to separate features and labels with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish separating the data into features and labels")
         return X, y
 
@@ -126,10 +109,6 @@ class train_Preprocessor:
             Description: This method classifies imputation method used to handle missing values for different columns.
             Output: Four list of columns for every imputation method (Mean, Median, Iterative Mean, Iterative Median)
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start identifying methods for handling missing values in the dataset")
         mean_imputed_column, median_imputed_column, iterative_imputed_column = [], [], []
@@ -140,7 +119,7 @@ class train_Preprocessor:
             result.to_csv(self.result_dir+'Missing_Values_Records.csv', index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to store information related to missing values with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to store information related to missing values with the following error: {e}")
         try:
             for column in X_train.columns:
                 if X_train[column].isna().sum()/len(X_train)>0.8:
@@ -167,7 +146,7 @@ class train_Preprocessor:
             pd.DataFrame({'Column_Name': iterative_imputed_column,'Impute_Strategy':['iterative']*len(iterative_imputed_column)})]).to_csv(self.result_dir+'Imputation_Methods.csv', index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to identify imputation methods with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to identify imputation methods with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish identifying methods for handling missing values in the dataset")
         return mean_imputed_column, median_imputed_column, iterative_imputed_column, X_train, X_test
 
@@ -177,10 +156,6 @@ class train_Preprocessor:
             Description: This method imputes missing values based on classified method from classify_impute_method function.
             Output: A pandas dataframe after imputing missing values.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start imputing missing values in the dataset")
         try:
@@ -206,7 +181,7 @@ class train_Preprocessor:
                     self.log_writer.log(self.file_object, f"The following columns have been imputed using iterative strategy: {column_list}")
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to impute missing values with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to impute missing values with the following error: {e}")
         return X_train, X_test
     
     def check_gaussian(self, X_train):
@@ -215,10 +190,6 @@ class train_Preprocessor:
             Description: This method classifies columns into gaussian and non-gaussian columns based on anderson test.
             Output: Two list of columns for gaussian and non-gaussian variables.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start categorizing columns into gaussian vs non-gaussian distribution")
         gaussian_columns = []
@@ -234,7 +205,7 @@ class train_Preprocessor:
                     self.log_writer.log(self.file_object, f"{column} column is identified as gaussian")
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to categorize columns into gaussian vs non-gaussian distribution with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to categorize columns into gaussian vs non-gaussian distribution with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish categorizing columns into gaussian vs non-gaussian distribution")
         return gaussian_columns, non_gaussian_columns
 
@@ -244,10 +215,6 @@ class train_Preprocessor:
             Description: This method computes lower bound and upper bound of outliers based on interquartile range (IQR) method
             Output: Two floating values that consist of lower bound and upper bound of outlier points for non-gaussian variables
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start computing lower and upper bound of outliers for {column} column")
         try:
@@ -258,7 +225,7 @@ class train_Preprocessor:
             upper_bound = Q3 + 1.5 * IQR
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to compute lower and upper bound of outliers for {column} column with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to compute lower and upper bound of outliers for {column} column with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish computing lower and upper bound of outliers for {column} column")
         return lower_bound, upper_bound
 
@@ -268,10 +235,6 @@ class train_Preprocessor:
             Description: This method computes lower bound and upper bound of outliers based on gaussian method
             Output: Two floating values that consist of lower bound and upper bound of outlier points for gaussian variables
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start computing lower and upper bound of outliers for {column} column")
         try:
@@ -279,7 +242,7 @@ class train_Preprocessor:
             upper_bound = np.mean(X_train[column]) + 3 * np.std(X_train[column])
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to compute lower and upper bound of outliers for {column} column with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to compute lower and upper bound of outliers for {column} column with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish computing lower and upper bound of outliers for {column} column")
         return lower_bound, upper_bound
 
@@ -292,10 +255,6 @@ class train_Preprocessor:
             are stored in a csv file named as "Outliers_Info.csv" 
             (One csv file for gaussian variables and another csv file for non gaussian variables)
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start checking outliers for the following columns: {column_list}") 
         outlier_num = []
@@ -315,7 +274,7 @@ class train_Preprocessor:
                 results.to_csv(self.result_dir + 'Outliers_Info_Gaussian.csv', index=False)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to check outliers for the following columns: {column_list} with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to check outliers for the following columns: {column_list} with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish checking outliers for the following columns: {column_list}") 
 
     def outlier_capping(self, method, fold, X_train, X_test, column_list):
@@ -326,10 +285,6 @@ class train_Preprocessor:
             respectively.
             Output: A pandas dataframe, where outlier values are capped at lower bound/upper bound.
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, f"Start capping outliers for the following columns: {column_list}")
         try:
@@ -339,7 +294,7 @@ class train_Preprocessor:
             pkl.dump(winsorizer, open(self.result_dir + f'{method}_outliercapping.pkl','wb'))
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to cap outliers for the following columns: {column_list} with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to cap outliers for the following columns: {column_list} with the following error: {e}")
         self.log_writer.log(self.file_object, f"Finish capping outliers for the following columns: {column_list}") 
         return X_train, X_test
     
@@ -351,10 +306,6 @@ class train_Preprocessor:
             that were removed due to constant variance are stored in a csv file named as "Columns_Removed.csv"
             (One csv file for gaussian transformed data and another csv file for non gaussian transformed data)
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, "Start removing features with constant variance")
         try:
@@ -367,7 +318,7 @@ class train_Preprocessor:
             self.log_writer.log(self.file_object, f"Following set of features were removed due to having constant variance: {selector.features_to_drop_}")
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to remove features with constant variance with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to remove features with constant variance with the following error: {e}")
         self.log_writer.log(self.file_object, "Finish removing features with constant variance")
         return X_train, X_test
 
@@ -378,10 +329,6 @@ class train_Preprocessor:
             transformation using identified methods from gaussian_transform_test function.
             Output: A pandas dataframe, where relevant non-gaussian variables are transformed into gaussian variables
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         X_train_transformed = X_train.copy()
         X_test_transformed = X_test.copy()
@@ -405,7 +352,7 @@ class train_Preprocessor:
                 self.log_writer.log(self.file_object, f'{type} transformation is applied to {variable_list} columns')
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to transform non-gaussian variables into gaussian variables with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to transform non-gaussian variables into gaussian variables with the following error: {e}")
         return X_train_transformed, X_test_transformed
 
     def gaussian_transform_test(self, X_train, X_test, column_list):
@@ -419,10 +366,6 @@ class train_Preprocessor:
             that transforms non-gaussian to gaussian variables are stored in a csv file named as 
             "Best_Transformation_Non_Gaussian.csv"
             On Failure: Raise Exception
-
-            Written By: Yi Xian Liaw
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, 'Start testing for gaussian transformation on non-gaussian columns')
         try:
@@ -451,7 +394,7 @@ class train_Preprocessor:
             X_train_transformed, X_test_transformed = self.gaussian_transform(X_train, X_test, best_results)
         except Exception as e:
             self.log_writer.log(self.file_object, f"Fail to perform gaussian transformation on non-gaussian columns with the following error: {e}")
-            raise Exception()
+            raise Exception(f"Fail to perform gaussian transformation on non-gaussian columns with the following error: {e}")
         self.log_writer.log(self.file_object, 'Finish testing for gaussian transformation on non-gaussian columns')
         return X_train_transformed, X_test_transformed
     
@@ -461,10 +404,6 @@ class train_Preprocessor:
             Description: This method performs all the data preprocessing tasks for the data.
             Output: A pandas dataframe, where all the data preprocessing tasks are performed.
             On Failure: Raise Exception
-
-            Written By: Raghav Pal
-            Version: 1.0
-            Revisions: None
         '''
         self.log_writer.log(self.file_object, 'Start of data preprocessing')
         self.start_path = start_path
@@ -475,11 +414,11 @@ class train_Preprocessor:
         data = self.remove_irrelevant_columns(data, self.col_remove)
         data = self.remove_duplicated_rows(data)
         X, y = self.features_and_labels(data, self.target_col)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.3, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
         X_train = X_train.reset_index(drop=True)
         X_test = X_test.reset_index(drop=True)
-        y_train = y_train.reset_index(drop=True)
-        y_test = y_test.reset_index(drop=True)
+        y_train = y_train.reset_index(drop=True).replace(-1,0)
+        y_test = y_test.reset_index(drop=True).replace(-1,0)
         mean_imp_col, median_imp_col, iterative_imp_col, X_train, X_test = self.classify_impute_method(X_train, X_test)
         X_train, X_test = self.impute_missing_values(X_train, X_test, mean_imp_col, 'mean')
         X_train, X_test = self.impute_missing_values(X_train, X_test, median_imp_col, 'median')
