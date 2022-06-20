@@ -116,8 +116,8 @@ For replicating the steps required for running this project on your own Heroku a
 <img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
 9. From the image above, click on Data Preparation first for initializing data ingestion into MySQL, followed by Preprocessing & Model_Training for training models, followed by Data Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
-<img src="https://user-images.githubusercontent.com/34255556/174514771-8510f66c-784c-4c32-9565-d5f42ce6373d.png" width="600" height="300">
-<img src="https://user-images.githubusercontent.com/34255556/174514833-1fc904b3-faae-408d-9f06-c31293413d3b.png" width="600" height="300">
+<img src="https://user-images.githubusercontent.com/34255556/174514771-8510f66c-784c-4c32-9565-d5f42ce6373d.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174514833-1fc904b3-faae-408d-9f06-c31293413d3b.png" width="600" height="400">
   
 <b>Important Note: Using "free" dynos on Heroku app only allows the app to run for a maximum of 30 minutes. Since the model training and prediction process takes a long time, consider changing the dynos type to "hobby" for unlimited time, which cost about $7 per month per dyno. You may also consider changing the dynos type to Standard 1X/2X for enhanced app performance.</b>
 
@@ -156,8 +156,9 @@ If you encounter the TomlDecodeError, ensure that the <b>config.toml</b> file is
 9. A new browser will open after successfully running the streamlit app with the following interface:
 <img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
-10. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
-<img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
+10. From the image above, click on Data Preparation first for initializing data ingestion into MySQL, followed by Preprocessing & Model_Training for training models, followed by Data Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
+<img src="https://user-images.githubusercontent.com/34255556/174514771-8510f66c-784c-4c32-9565-d5f42ce6373d.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174514833-1fc904b3-faae-408d-9f06-c31293413d3b.png" width="600" height="400">
 
 **Project Instructions (Docker)**
 ---
@@ -194,8 +195,9 @@ logins = {"host": <host_name>,
 7. Open a new browser with the following link shown on the image above, which will open after successfully running the streamlit app with the following interface:
 <img src="https://user-images.githubusercontent.com/34255556/174513887-d2614ff2-a1d4-4ed5-886a-4ea44045bcc1.png" width="600" height="300">
 
-8. From the image above, click on Model_Training first for training models, followed by Data_Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
-<img src="https://user-images.githubusercontent.com/34255556/160225941-867f92e0-5709-44f5-b35e-426187c5a99b.png" width="600" height="400">
+8. From the image above, click on Data Preparation first for initializing data ingestion into MySQL, followed by Preprocessing & Model_Training for training models, followed by Data Prediction for model prediction. (Note that zip files will be available for download after successfully completing either model training or model prediction, which contains the results from running the process)
+<img src="https://user-images.githubusercontent.com/34255556/174514771-8510f66c-784c-4c32-9565-d5f42ce6373d.png" width="600" height="400">
+<img src="https://user-images.githubusercontent.com/34255556/174514833-1fc904b3-faae-408d-9f06-c31293413d3b.png" width="600" height="400">
 
 **Project Findings**
 ---
