@@ -1,6 +1,6 @@
 '''
 Author: Liaw Yi Xian
-Last Modified: 18th June 2022
+Last Modified: 20th June 2022
 '''
 
 import ast
@@ -35,10 +35,21 @@ random_state=42
 
 class model_trainer:
     def __init__(self, file_object):
+        '''
+            Method Name: __init__
+            Description: This method initializes instance of model_trainer class
+            Output: None
+        '''
         self.file_object = file_object
         self.log_writer = App_Logger()
     
     def setting_attributes(trial, cv_results,train_val_mc, test_mc, train_val_recall, test_recall):
+        '''
+            Method Name: setting_attributes
+            Description: This method sets attributes of metric results for training, validation and test set from a 
+            given Optuna trial
+            Output: None
+        '''
         trial.set_user_attr("train_matthews_corrcoef", cv_results['train_matthews_corrcoef'].mean())
         trial.set_user_attr("train_recall_score_macro", cv_results['train_recall_score_macro'].mean())
         trial.set_user_attr("val_matthews_corrcoef", cv_results['test_matthews_corrcoef'].mean())
@@ -49,6 +60,13 @@ class model_trainer:
         trial.set_user_attr("test_recall_score_macro", test_recall)
 
     def rf_objective(trial,X_train_data,y_train_data, X_test_data, y_test_data):
+        '''
+            Method Name: rf_objective
+            Description: This method sets the objective function for random forest model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         clf = DecisionTreeClassifier(random_state=random_state)
         path = clf.cost_complexity_pruning_path(X_train_data, y_train_data)
         ccp_alpha = trial.suggest_categorical('ccp_alpha',path.ccp_alphas[:-1])
@@ -62,6 +80,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def lr_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: lr_objective
+            Description: This method sets the objective function for logistic regression model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         C = trial.suggest_float('C',0.01,1)
         clf = LogisticRegression(C=C, max_iter=1000000, random_state=random_state, class_weight = 'balanced',n_jobs=-1)
         cv_results, train_val_mc, test_mc, train_val_recall, test_recall = model_trainer.classification_metrics(clf,X_train_data,y_train_data,X_test_data, y_test_data)
@@ -71,6 +96,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def dt_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: dt_objective
+            Description: This method sets the objective function for decision trees model by setting various hyperparameters 
+            for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         clf = DecisionTreeClassifier(random_state=random_state)
         path = clf.cost_complexity_pruning_path(X_train_data, y_train_data)
         ccp_alpha = trial.suggest_categorical('ccp_alpha',path.ccp_alphas[:-1])
@@ -82,6 +114,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def et_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: et_objective
+            Description: This method sets the objective function for extra trees model by setting various hyperparameters 
+            for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         clf = DecisionTreeClassifier(random_state=random_state)
         path = clf.cost_complexity_pruning_path(X_train_data, y_train_data)
         ccp_alpha = trial.suggest_categorical('ccp_alpha',path.ccp_alphas[:-1])
@@ -94,6 +133,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def svc_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: svc_objective
+            Description: This method sets the objective function for SVC model by setting various hyperparameters for 
+            different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         C = trial.suggest_float('C',0.01,1)
         clf = SVC(C=C,kernel='linear', probability=True, random_state=random_state, class_weight='balanced')
         cv_results, train_val_mc, test_mc, train_val_recall, test_recall = model_trainer.classification_metrics(clf,X_train_data,y_train_data,X_test_data, y_test_data)
@@ -103,6 +149,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def knn_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: knn_objective
+            Description: This method sets the objective function for K-nearest neighbors model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         n_neighbors = trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11])
         algorithm = trial.suggest_categorical('algorithm', ['ball_tree', 'kd_tree', 'brute'])
         weights = trial.suggest_categorical('weights', ['uniform', 'distance'])
@@ -116,6 +169,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def gaussiannb_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: gaussiannb_objective
+            Description: This method sets the objective function for gaussian naive bayes model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         var_smoothing = trial.suggest_float('var_smoothing', 0, 1)
         clf = GaussianNB(var_smoothing=var_smoothing)
         cv_results, train_val_mc, test_mc, train_val_recall, test_recall = model_trainer.classification_metrics(clf,X_train_data,y_train_data,X_test_data, y_test_data)
@@ -125,6 +185,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def gradientboost_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: gradientboost_objective
+            Description: This method sets the objective function for Gradient Boost model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         loss = trial.suggest_categorical('loss',['deviance','exponential'])
         clf = DecisionTreeClassifier(random_state=random_state)
         path = clf.cost_complexity_pruning_path(X_train_data, y_train_data)
@@ -137,6 +204,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def adaboost_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: adaboost_objective
+            Description: This method sets the objective function for AdaBoost model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         learning_rate = trial.suggest_float('learning_rate',0.001,0.01)
         clf = AdaBoostClassifier(learning_rate=learning_rate, random_state=random_state)
         cv_results, train_val_mc, test_mc, train_val_recall, test_recall = model_trainer.classification_metrics(clf,X_train_data,y_train_data,X_test_data, y_test_data)
@@ -146,6 +220,13 @@ class model_trainer:
         return matthews_corrcoef,recall_score
 
     def xgboost_objective(trial,X_train_data,y_train_data,X_test_data,y_test_data):
+        '''
+            Method Name: xgboost_objective
+            Description: This method sets the objective function for XGBoost model by setting various 
+            hyperparameters for different Optuna trials.
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
+            of given model on validation set from using 5 fold cross validation
+        '''
         booster = trial.suggest_categorical('booster',['gbtree','gblinear'])
         eta = trial.suggest_float('eta',0,0.01)
         gamma = trial.suggest_float('gamma',1,50)
@@ -172,7 +253,7 @@ class model_trainer:
             Method Name: ann_objective
             Description: This method sets the objective function for Sequential model by setting various 
             hyperparameters for different Optuna trials.
-            Output: Two floating point values that represents root mean squared error and mean absolute error 
+            Output: Two floating point values that represents matthews correlation coefficient score and recall score
             of given model on validation set from using 5 fold cross validation
         '''
         cont_model = Sequential()
@@ -222,6 +303,12 @@ class model_trainer:
         return val_mc, val_recall        
 
     def classification_metrics(clf,X_train_data,y_train_data, X_test_data, y_test_data):
+        '''
+            Method Name: classification_metrics
+            Description: This method performs 5-fold cross validation on the training set and performs model evaluation on the test set.
+            Output: List of metric values from 5-fold cross validation and four floating point values that represent
+            metric results from model evaluation on the test set
+        '''
         cv_results = cross_validate(clf, X_train_data, y_train_data, cv=5, return_train_score=True,
         scoring={"matthews_corrcoef": make_scorer(matthews_corrcoef), 
         "recall_score_macro": make_scorer(recall_score, average='macro')})
@@ -233,6 +320,14 @@ class model_trainer:
         return cv_results, train_val_mc, test_mc, train_val_recall, test_recall
 
     def initialize_model_training(self,folderpath,filepath):
+        '''
+            Method Name: initialize_model_training
+            Description: This method initializes the model training process by creating a new CSV file 
+            for storing model results, while setting the list of objective functions with its corresponding model 
+            objects for model training.
+            Output: Two list objects that represent objective functions with its corresponding initial model objects.
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, 'Start initializing objectives required for model training')
         self.filepath = filepath
         objectives = [model_trainer.rf_objective, model_trainer.lr_objective, model_trainer.dt_objective, 
@@ -262,6 +357,14 @@ class model_trainer:
         return objectives, selectors
 
     def fit_scaled_data(self, data, scaler_type):
+        '''
+            Method Name: fit_scaled_data
+            Description: This method compute the necessary values required to be used for data scaling based 
+            on the type of scaler. (i.e. mean and standard deviation for Standard Scaler or min and max for MinMaxScaler 
+            or median and quantiles for RobustScaler)
+            Output: Fitted scaler object
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start fitting scaler on dataset')
         try:
             scaler_type = scaler_type.fit(data)
@@ -272,6 +375,12 @@ class model_trainer:
         return scaler_type
 
     def transform_scaled_data(self, data, scaler_type):
+        '''
+            Method Name: transform_scaled_data
+            Description: This method centers and scale the data based on a given fitted scaler object.
+            Output: A pandas dataframe of scaled data
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start transforming scaler on dataset')
         try:
             data_scaled = pd.DataFrame(scaler_type.transform(data), columns=data.columns)
@@ -282,6 +391,12 @@ class model_trainer:
         return data_scaled
 
     def scale_vs_non_scale_data(self,clf,X_train_scaled,X_train,y_train):
+        '''
+            Method Name: scale_vs_non_scale_data
+            Description: This method selects between scaled vs non-scaled data based on the type of model used for training.
+            Output: Two pandas dataframe of feature and label data.
+            On Failure: Logging error and raise exception
+        '''
         if type(clf).__name__ in ['LogisticRegression','SVC','KNeighborsClassifier','Sequential']:
             X_train_data = X_train_scaled
         else:
@@ -292,6 +407,12 @@ class model_trainer:
         return X_train_data, y_train_data
 
     def optuna_optimizer(self, obj, n_trials):
+        '''
+            Method Name: optuna_optimizer
+            Description: This method creates a new Optuna study object and optimizes the given objective function.
+            Output: List of frozen trial objects from optimizing a given objective function.
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start performing optuna hyperparameter tuning for {obj.__name__} model')
         try:
             study = optuna.create_study(directions=['maximize','maximize'])
@@ -304,6 +425,26 @@ class model_trainer:
         return trials
 
     def train_per_model(self,obj, clf, trial_size,col_list, n_features,X_train,y_train,X_test,y_test,num_features, col_selected, model_name, best_params, clustering_yes_no, train_matthews_corrcoef, val_matthews_corrcoef, train_recall_score, val_recall_score, train_val_matthews_corrcoef_score, test_matthews_corrcoef_score, train_val_recall_score, test_recall_score, clustering):
+        '''
+            Method Name: train_per_model
+            Description: This method stores the following types of results required in respective list objects by 
+            batches before storing these results in CSV file using store_tuning_results function.
+            1. Number of features
+            2. Column names selected
+            3. Model name
+            4. Model parameters
+            5. Clustering (Yes vs No)
+            6. Train Matthews Correlation Coefficient (MCC)
+            7. Validation MCC
+            8. Train recall
+            9. Validation recall
+            10. Train-Validation MCC
+            11. Test MCC
+            12. Train-Validation recall
+            13. Test recall
+            Output: None
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start model training on {type(clf).__name__} for {n_features} features with {clustering} clustering')
         try:
             func = lambda trial: obj(trial, X_train, y_train,X_test,y_test)
@@ -340,6 +481,25 @@ class model_trainer:
         self.log_writer.log(self.file_object, f'Finish model training on {type(model).__name__} for {n_features} features with {clustering} clustering')
 
     def store_tuning_results(self,col_selected,num_features,model_name,best_params,clustering_yes_no, train_matthews_corrcoef,val_matthews_corrcoef,train_recall_score,val_recall_score,train_val_matthews_corrcoef_score,test_matthews_corrcoef_score,train_val_recall_score,test_recall_score,folderpath,filepath,n_features):
+        '''
+            Method Name: store_tuning_results
+            Description: This method stores the following list objects in CSV file for model evaluation:
+            1. Number of features
+            2. Column names selected
+            3. Model name
+            4. Model parameters
+            5. Clustering (Yes vs No)
+            6. Train Matthews Correlation Coefficient (MCC)
+            7. Validation MCC
+            8. Train recall
+            9. Validation recall
+            10. Train-Validation MCC
+            11. Test MCC
+            12. Train-Validation recall
+            13. Test recall
+            Output: None
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start appending results from model training for {n_features} features')
         try:
             results = pd.concat([pd.Series(col_selected, name='column_list'), pd.Series(num_features, name='num_features'), 
@@ -359,6 +519,14 @@ class model_trainer:
         self.log_writer.log(self.file_object, f'Finish appending results from model training for {n_features} features')
 
     def best_model(self, folderpath, filepath, bestresultpath, threshold):
+        '''
+            Method Name: best_model
+            Description: This method identifies the best model to use for model deployment based on MCC and recall
+            performance metrics with a pre-defined threshold of difference allowed between model performance 
+            on training set and test set.
+            Output: A pandas dataframe that contains information about the best model identified from model evaluation.
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start determining best configuration to use for saving models')
         try:
             results = pd.read_csv(folderpath+filepath).sort_values(by='test_matthews_corrcoef',ascending=False)
@@ -375,6 +543,13 @@ class model_trainer:
         return final_models
 
     def k_means_clustering(self, data, start_cluster, end_cluster):
+        '''
+            Method Name: k_means_clustering
+            Description: This method performs K-means clustering on given data, while identifying the most suitable number
+            of clusters to use for the given dataset.
+            Output: KneeLocator object and KMeans object
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start deriving best number of clusters from k-means clustering')
         wcss=[]
         try:
@@ -391,6 +566,15 @@ class model_trainer:
         return kneeloc, kmeans
 
     def add_cluster_number_to_data(self,train_scaled_data, train_data, test_scaled_data, test_data, final=False):
+        '''
+            Method Name: add_cluster_number_to_data
+            Description: This method performs K-means clustering on given scaled data, while identifying the most suitable 
+            number of clusters to use for the given dataset and adding the cluster number to the existing scaled and 
+            unscaled data.
+            Output: Four pandas dataframe consist of training and testing data for both scaled and unscaled data. 
+            Note that a pickle object will be created if the best model identified requires K-means clustering.
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start performing data clustering')
         try:
             kneeloc, kmeans = self.k_means_clustering(train_scaled_data, 1, 10)
@@ -411,6 +595,13 @@ class model_trainer:
         return train_data, test_data, train_scaled_data, test_scaled_data
 
     def data_scaling_train_test(self, folderpath, train_data, gaussian_variables, test_data, non_gaussian_variables):
+        '''
+            Method Name: data_scaling_train_test
+            Description: This method performs feature scaling on training and testing data using Standard Scaler,
+            MinMax Scaler and MaxAbs Scaler method depending on type of variables.
+            Output: Two pandas dataframe consist of training and testing scaled data.
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start performing scaling data on train and test set')
         try:
             non_gaussian_absolute = []
@@ -441,6 +632,12 @@ class model_trainer:
         return X_train_scaled, X_test_scaled
 
     def learning_curve_plot(self,folderpath, train_size, train_score_m, test_score_m):
+        '''
+            Method Name: learning_curve_plot
+            Description: This method plots learning curve of a given model and saves the figure plot in a given folder path.
+            Output: None
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start plotting learning curve')
         try:
             fig1, ax1 = plt.subplots()
@@ -460,6 +657,12 @@ class model_trainer:
         self.log_writer.log(self.file_object, f'Finish plotting learning curve')
 
     def train_overall_model(self, X_train_sub, X_test_sub, y_train_data, y_test_data, model, final_result, name_model, folderpath):
+        '''
+            Method Name: train_overall_model
+            Description: This method trains the model on the entire dataset using the best model identified from model evaluation for model deployment.
+            Output: Trained model object
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, f'Start training and saving the {name_model} model')
         try:
             X_sub = pd.concat([X_train_sub, X_test_sub]).reset_index(drop=True)
@@ -508,6 +711,12 @@ class model_trainer:
         return overall_model
 
     def train_model_and_hyperparameter_tuning(self, train_data, test_data, train_output, test_output, folderpath, filepath, bestresultpath, threshold):
+        '''
+            Method Name: train_model_and_hyperparameter_tuning
+            Description: This method performs all the model training and hyperparameter tuning tasks for the data.
+            Output: None
+            On Failure: Logging error and raise exception
+        '''
         self.log_writer.log(self.file_object, 'Start model training and hyperparameter tuning')
         self.train_data = train_data
         self.test_data = test_data

@@ -34,7 +34,7 @@ class train_Preprocessor:
             Method Name: extract_compiled_data
             Description: This method extracts data from a csv file and converts it into a pandas dataframe.
             Output: A pandas dataframe
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start reading compiled data from database")
         self.path = path
@@ -52,7 +52,7 @@ class train_Preprocessor:
             Description: This method removes columns from a pandas dataframe, which are not relevant for analysis.
             Output: A pandas DataFrame after removing the specified columns. In addition, columns that are removed will be 
             stored in a separate csv file labeled "Columns_Drop_from_Original.csv"
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start removing irrelevant columns from the dataset")
         try:
@@ -71,7 +71,7 @@ class train_Preprocessor:
             Description: This method removes duplicated rows from a pandas dataframe.
             Output: A pandas DataFrame after removing duplicated rows. In addition, duplicated records that are removed will 
             be stored in a separate csv file labeled "Duplicated_Records_Removed.csv"
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start handling duplicated rows in the dataset")
         if len(data[data.duplicated()]) == 0:
@@ -91,7 +91,7 @@ class train_Preprocessor:
             Method Name: features_and_labels
             Description: This method splits a pandas dataframe into two pandas objects, consist of features and target labels.
             Output: Two pandas/series objects consist of features and labels separately.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start separating the data into features and labels")
         try:
@@ -108,7 +108,7 @@ class train_Preprocessor:
             Method Name: classify_impute_method
             Description: This method classifies imputation method used to handle missing values for different columns.
             Output: Four list of columns for every imputation method (Mean, Median, Iterative Mean, Iterative Median)
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start identifying methods for handling missing values in the dataset")
         mean_imputed_column, median_imputed_column, iterative_imputed_column = [], [], []
@@ -155,7 +155,7 @@ class train_Preprocessor:
             Method Name: impute_missing_values
             Description: This method imputes missing values based on classified method from classify_impute_method function.
             Output: A pandas dataframe after imputing missing values.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start imputing missing values in the dataset")
         try:
@@ -189,7 +189,7 @@ class train_Preprocessor:
             Method Name: check_gaussian
             Description: This method classifies columns into gaussian and non-gaussian columns based on anderson test.
             Output: Two list of columns for gaussian and non-gaussian variables.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start categorizing columns into gaussian vs non-gaussian distribution")
         gaussian_columns = []
@@ -214,7 +214,7 @@ class train_Preprocessor:
             Method Name: iqr_lower_upper_bound
             Description: This method computes lower bound and upper bound of outliers based on interquartile range (IQR) method
             Output: Two floating values that consist of lower bound and upper bound of outlier points for non-gaussian variables
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start computing lower and upper bound of outliers for {column} column")
         try:
@@ -234,7 +234,7 @@ class train_Preprocessor:
             Method Name: gaussian_lower_upper_bound
             Description: This method computes lower bound and upper bound of outliers based on gaussian method
             Output: Two floating values that consist of lower bound and upper bound of outlier points for gaussian variables
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start computing lower and upper bound of outliers for {column} column")
         try:
@@ -254,7 +254,7 @@ class train_Preprocessor:
             Output: No output returned. Instead, the results that contains number and proportion of outliers for every variable
             are stored in a csv file named as "Outliers_Info.csv" 
             (One csv file for gaussian variables and another csv file for non gaussian variables)
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start checking outliers for the following columns: {column_list}") 
         outlier_num = []
@@ -284,7 +284,7 @@ class train_Preprocessor:
             iqr_lower_upper_bound or gaussian_lower_upper_bound function for non-gaussian variables and gaussian variables
             respectively.
             Output: A pandas dataframe, where outlier values are capped at lower bound/upper bound.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start capping outliers for the following columns: {column_list}")
         try:
@@ -305,7 +305,7 @@ class train_Preprocessor:
             Output: A pandas dataframe, where variables with constant variance are removed.  In addition, variables
             that were removed due to constant variance are stored in a csv file named as "Columns_Removed.csv"
             (One csv file for gaussian transformed data and another csv file for non gaussian transformed data)
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start removing features with constant variance")
         try:
@@ -328,7 +328,7 @@ class train_Preprocessor:
             Description: This method transforms individual variables that are identified to be significant for gaussian 
             transformation using identified methods from gaussian_transform_test function.
             Output: A pandas dataframe, where relevant non-gaussian variables are transformed into gaussian variables
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         X_train_transformed = X_train.copy()
         X_test_transformed = X_test.copy()
@@ -365,7 +365,7 @@ class train_Preprocessor:
             Output: A pandas dataframe, where variables with constant variance are removed. In addition, best results identified 
             that transforms non-gaussian to gaussian variables are stored in a csv file named as 
             "Best_Transformation_Non_Gaussian.csv"
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, 'Start testing for gaussian transformation on non-gaussian columns')
         try:
@@ -403,7 +403,7 @@ class train_Preprocessor:
             Method Name: data_preprocessing
             Description: This method performs all the data preprocessing tasks for the data.
             Output: A pandas dataframe, where all the data preprocessing tasks are performed.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, 'Start of data preprocessing')
         self.start_path = start_path

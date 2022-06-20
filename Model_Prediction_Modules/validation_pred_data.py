@@ -123,7 +123,7 @@ class rawpreddatavalidation(DBOperations):
             Description: This method initializes instance of rawpreddatavalidation class, while inheriting methods 
             from DBOperations class
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         super().__init__(tablename, file_object)
         self.gooddir = gooddir
@@ -136,7 +136,7 @@ class rawpreddatavalidation(DBOperations):
             Description: This method loads the schema of the prediction data from a given JSON file 
             for creating tables in MySQL database.
             Output: JSON object
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start loading prediction schema")
         self.filename = filename
@@ -156,7 +156,7 @@ class rawpreddatavalidation(DBOperations):
             If exist, this method deletes the existing folders and creates new ones. 
             Note that manual archiving will be required if backup of existing files is required.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start initializing folder structure")
         self.filelist = filelist
@@ -177,7 +177,7 @@ class rawpreddatavalidation(DBOperations):
             Description: This method checks for the validity of file names of CSV files. 
             If the CSV file does not follow specified name format, the CSV file is moved to bad data folder.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start checking for valid name of files")
         self.sourcedir = sourcedir
@@ -207,7 +207,7 @@ class rawpreddatavalidation(DBOperations):
             defined in schema object.
             If the CSV file does not contain specified number of columns, the CSV file is moved to bad data folder.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start checking for number of columns in file")
         self.schema = schema
@@ -235,7 +235,7 @@ class rawpreddatavalidation(DBOperations):
             Description: This method checks for the existence of columns having all null values in a given CSV file.
             If the CSV file has any columns that contains all null values, the CSV file is moved to bad data folder.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start checking for columns with all missing values in file")
         for file in os.listdir(self.gooddir[:-1]):
@@ -263,7 +263,7 @@ class rawpreddatavalidation(DBOperations):
             Method Name: blank_with_null_replacement
             Description: This method replaces blank cells with null keyword in a given CSV file.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start replacing missing values with null keyword")
         for file in os.listdir(self.gooddir[:-1]):
@@ -283,7 +283,7 @@ class rawpreddatavalidation(DBOperations):
             compiled data from MySQL database. Note that good data folder only stores CSV files temporarily 
             during this pipeline execution.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start deleting all good_prediction_data files")
         for file in os.listdir(self.gooddir[:-1]):
@@ -305,7 +305,7 @@ class rawpreddatavalidation(DBOperations):
             successfully extract compiled data from MySQL database. 
             Note that bad data folder only stores CSV files temporarily during this pipeline execution.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start moving all bad data files into archive folder")
         self.archivedir = archivedir
@@ -326,7 +326,7 @@ class rawpreddatavalidation(DBOperations):
             Method Name: initial_data_preparation
             Description: This method performs all the preparation tasks for the data to be ingested into MySQL database.
             Output: None
-            On Failure: Log errors and raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start initial data preparation")
         self.schemapath = schemapath

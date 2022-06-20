@@ -23,7 +23,7 @@ class pred_Preprocessor:
             Method Name: extract_compiled_data
             Description: This method extracts data from a csv file and converts it into a pandas dataframe.
             Output: A pandas dataframe
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start reading compiled data from database")
         self.path = path
@@ -41,7 +41,7 @@ class pred_Preprocessor:
             Description: This method removes duplicated rows from a pandas dataframe.
             Output: A pandas DataFrame after removing duplicated rows. In addition, duplicated records that are removed will 
             be stored in a separate csv file labeled "Duplicated_Records_Removed.csv"
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start handling duplicated rows in the dataset")
         self.data = data
@@ -62,7 +62,7 @@ class pred_Preprocessor:
             Method Name: impute_missing_values
             Description: This method imputes missing values based on classified method from classify_impute_method function.
             Output: A pandas dataframe after imputing missing values.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start imputing missing values in the dataset")
         try:
@@ -91,7 +91,7 @@ class pred_Preprocessor:
             iqr_lower_upper_bound or gaussian_lower_upper_bound function for non-gaussian variables and gaussian variables
             respectively.
             Output: A pandas dataframe, where outlier values are capped at lower bound/upper bound.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start capping outliers using {method} method")
         try:
@@ -113,7 +113,7 @@ class pred_Preprocessor:
             Output: A pandas dataframe, where variables with constant variance are removed.  In addition, variables
             that were removed due to constant variance are stored in a csv file named as "Columns_Removed.csv"
             (One csv file for gaussian transformed data and another csv file for non gaussian transformed data)
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, "Start removing features with constant variance")
         try:
@@ -132,7 +132,7 @@ class pred_Preprocessor:
             Description: This method transforms individual variables that are identified to be significant for gaussian 
             transformation using identified methods from gaussian_transform_test function.
             Output: A pandas dataframe, where relevant non-gaussian variables are transformed into gaussian variables
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f"Start transforming non gaussian columns to gaussian columns")
         try:
@@ -162,7 +162,7 @@ class pred_Preprocessor:
             Method Name: data_preprocessing
             Description: This method performs all the data preprocessing tasks for the data.
             Output: A pandas dataframe, where all the data preprocessing tasks are performed.
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, 'Start of data preprocessing')
         self.start_path = start_path

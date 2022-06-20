@@ -22,7 +22,7 @@ class model_predictor:
             Method Name: clustering
             Description: This method performs data clustering on given data and returns the clustered data.
             Output: A pandas dataframe
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, 'Start using best clustering model based on best configurations identified for prediction')
         try:
@@ -45,7 +45,7 @@ class model_predictor:
             Method Name: data_scaling_test
             Description: This method performs feature scaling on test data based on scalers fitted on the training data.
             Output: A pandas dataframe
-            On Failure: Raise Exception
+            On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, 'Start performing feature scaling on prediction data')
         try:
