@@ -279,6 +279,7 @@ Additional CSV files like <b>Imputation_Methods.csv</b> and <b>Missing_Values_Re
 
 #### iv. Summary of Outliers Identified
 Out of 460 features, 440 features are identified to have outliers (13 gaussian features and 427 non gaussian features) with different proportion of outliers ranging from 0.15% to 27.06%. Although these outliers have been identified using statistical methods like mean and standard deviation for gaussian variables and median and interquartile range (IQR) for non-gaussian variables, removing such outliers will require further investigation and proper justification from a business perspective.
+
 Thus, an alternative method to handle these outliers is to capping outliers at boundary values using mean and st. deviation for gaussian variables and IQR for non-gaussian variables. Additional experiments can also be done to identify impact of outlier handling methods on model performance.
 
 For more details of proportion of outliers for all features, refer to the following CSV files: <b>Outliers_Info_Gaussian.csv, Outliers_Info_Non_Gaussian.csv</b>
