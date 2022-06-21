@@ -256,9 +256,12 @@ Prior to model training, the following steps have been taken for feature enginee
 
 #### i. Removal of irrelevant features
 From a total of 591 features, 131 features have been removed with the following breakdown along with its justification:
-- 1 Feature (Wafer): Label ID
-- 4 features: More than 80% missing values
-- 126 features: Constant variance
+
+| Justification                | No. of features|
+| ---------------------------- |:--------------:|
+| Label ID                     | 1              |
+| More than 80% missing values | 4              |
+| Constant variance            | 126            |
 
 For more details of which features have been removed from the dataset, refer to the following CSV file: Columns_Drop_from_Original.csv
 
