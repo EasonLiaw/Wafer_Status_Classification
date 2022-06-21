@@ -254,14 +254,17 @@ From a total of 591 features, 131 features have been removed with the following 
 - 1 Feature (Wafer): Label ID
 - 4 features: More than 80% missing values
 - 126 features: Constant variance
+
 For more details of which features have been removed from the dataset, refer to the following CSV file: Intermediate_Train_Results/Columns_Drop_from_Original.csv
 
 #### 2. Gaussian vs Non-gaussian Variables
 From the remaining 460 features, 90 features are identified to follow gaussian distribution and remaining 370 features are identified to follow non-gaussian distribution. All features are identified to follow either gaussian or non-gaussian distribution using Anderson test from Statsmodels package.
+
 For more details of which features are gaussian or non-gaussian, refer to the following CSV files: Intermediate_Train_Results/Gaussian_columns.csv, Intermediate_Train_Results/Non_gaussian_columns.csv
 
 #### 3. Proportion of Missing Values
 Out of 460 features, 435 features are identified to have missing values with different proportions. All 435 features are identified to have strong to very strong correlation of missingness with other features (data missing not completely at random), thus using simple imputation methods like mean or median imputation is less suitable. Instead, iterative imputation is applied across all features with missing values.
+
 For more details of proportion of missing values for all features, refer to the following CSV file: Intermediate_Train_Results/Missing_Values_Info.csv
 Additional CSV files like Imputation_Methods.csv and Missing_Values_Records.csv have also been included in Intermediate_Train_Results folder for reference.
 
