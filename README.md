@@ -254,7 +254,7 @@ Note that all intermediate results from this stage are stored in Intermediate_Tr
 
 Prior to model training, the following steps have been taken for feature engineering/data cleaning with the following outcomes:
 
-#### 1. Removal of irrelevant features
+#### i. Removal of irrelevant features
 From a total of 591 features, 131 features have been removed with the following breakdown along with its justification:
 - 1 Feature (Wafer): Label ID
 - 4 features: More than 80% missing values
@@ -262,24 +262,23 @@ From a total of 591 features, 131 features have been removed with the following 
 
 For more details of which features have been removed from the dataset, refer to the following CSV file: Columns_Drop_from_Original.csv
 
-&ndash;
-#### 2. Gaussian vs Non-gaussian Variables
+#### ii. Gaussian vs Non-gaussian Variables
 From the remaining 460 features, 90 features are identified to follow gaussian distribution and remaining 370 features are identified to follow non-gaussian distribution. All features are identified to follow either gaussian or non-gaussian distribution using Anderson test from Statsmodels package.
 
 For more details of which features are gaussian or non-gaussian, refer to the following CSV files: Gaussian_columns.csv, Non_gaussian_columns.csv
 
-#### 3. Proportion of Missing Values
+#### iii. Proportion of Missing Values
 Out of 460 features, 435 features are identified to have missing values with different proportions. All 435 features are identified to have strong to very strong correlation of missingness with other features (data missing not completely at random), thus using simple imputation methods like mean or median imputation is less suitable. Instead, iterative imputation is applied across all features with missing values.
 
 For more details of proportion of missing values for all features, refer to the following CSV file: Missing_Values_Info.csv
 
 Additional CSV files like Imputation_Methods.csv and Missing_Values_Records.csv have also been included for reference.
 
-#### 4. Summary of Outliers Identified
+#### iv. Summary of Outliers Identified
 
-#### 5. Gaussian transformation on non-gaussian variables
+#### v. Gaussian transformation on non-gaussian variables
 
-#### 6. Feature scaling methods used
+#### vi. Feature scaling methods used
   
 **Legality**
 ---
