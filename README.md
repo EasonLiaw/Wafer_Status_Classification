@@ -299,6 +299,7 @@ Note that anderson test is used to identify whether a given gaussian transformat
 For more detailed breakdown of gaussian transformation method used for various features, refer to the following CSV file: Best_Transformation_Non_Gaussian.csv
 
 #### vi. Feature scaling methods used
+Feature scaling is only essential in some Machine Learning models like Logistic Regression, SVC, KNN and Neural networks for faster convergence and to prevent misinterpretation of one feature significantly more important than other features.
   
 **Legality**
 ---
