@@ -258,28 +258,30 @@ Prior to model training, the following steps have been taken for feature enginee
 From a total of 591 features, 131 features have been removed with the following breakdown along with its justification:
 
 | Justification                | No. of features|
-| ---------------------------- |:--------------:|
+| :---------------------------:|:--------------:|
 | Label ID                     | 1              |
 | More than 80% missing values | 4              |
 | Constant variance            | 126            |
 
-For more details of which features have been removed from the dataset, refer to the following CSV file: Columns_Drop_from_Original.csv
-
-***
+For more details of which features have been removed from the dataset, refer to the following CSV file: <b>Columns_Drop_from_Original.csv</b>
 
 #### ii. Gaussian vs Non-gaussian Variables
 From the remaining 460 features, 90 features are identified to follow gaussian distribution and remaining 370 features are identified to follow non-gaussian distribution. All features are identified to follow either gaussian or non-gaussian distribution using Anderson test from Statsmodels package.
 
-For more details of which features are gaussian or non-gaussian, refer to the following CSV files: Gaussian_columns.csv, Non_gaussian_columns.csv
+For more details of which features are gaussian or non-gaussian, refer to the following CSV files: <b>Gaussian_columns.csv, Non_gaussian_columns.csv</b>
 
 #### iii. Proportion of Missing Values
-Out of 460 features, 435 features are identified to have missing values with different proportions. All 435 features are identified to have strong to very strong correlation of missingness with other features (data missing not completely at random), thus using simple imputation methods like mean or median imputation is less suitable. Instead, iterative imputation is applied across all features with missing values.
+Out of 460 features, 435 features are identified to have missing values with different proportions. All 435 features are identified to have strong to very strong correlation of missingness with other features (data missing not completely at random), thus using simple imputation methods like mean or median imputation is less suitable. Instead, <b>iterative imputation is applied across all features with missing values</b>.
 
-For more details of proportion of missing values for all features, refer to the following CSV file: Missing_Values_Info.csv
+For more details of proportion of missing values for all features, refer to the following CSV file: <b>Missing_Values_Info.csv</b>
 
-Additional CSV files like Imputation_Methods.csv and Missing_Values_Records.csv have also been included for reference.
+Additional CSV files like <b>Imputation_Methods.csv</b> and <b>Missing_Values_Records.csv</b> have also been included for reference.
 
 #### iv. Summary of Outliers Identified
+Out of 460 features, 440 features are identified to have outliers (13 gaussian features and 427 non gaussian features) with different proportion of outliers ranging from 0.15% to 27.06%. Although these outliers have been identified using statistical methods like mean and standard deviation for gaussian variables and median and interquartile range (IQR) for non-gaussian variables, removing such outliers will require further investigation and proper justification from a business perspective.
+Thus, an alternative method to handle these outliers is to capping outliers at boundary values using mean and st. deviation for gaussian variables and IQR for non-gaussian variables. Additional experiments can also be done to identify impact of outlier handling methods on model performance.
+
+For more details of proportion of outliers for all features, refer to the following CSV files: <b>Outliers_Info_Gaussian.csv, Outliers_Info_Non_Gaussian.csv</b>
 
 #### v. Gaussian transformation on non-gaussian variables
 
