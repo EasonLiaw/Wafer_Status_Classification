@@ -203,14 +203,14 @@ logins = {"host": <host_name>,
 ---
 
 ### 1. Overall confusion matrix
-**---
 
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
 
 ![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/174515490-e2c5e747-7f4e-41a5-bb7c-717007382f1b.png)
 
 From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (6 samples), as compared to false positives (170 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
-  
+
+---
 ### 2. Best classification model configuration
 
 The following information below summarizes the configuration of the best model identified in this project:
