@@ -262,6 +262,7 @@ From a total of 591 features, 131 features have been removed with the following 
 
 For more details of which features have been removed from the dataset, refer to the following CSV file: Columns_Drop_from_Original.csv
 
+------
 #### 2. Gaussian vs Non-gaussian Variables
 From the remaining 460 features, 90 features are identified to follow gaussian distribution and remaining 370 features are identified to follow non-gaussian distribution. All features are identified to follow either gaussian or non-gaussian distribution using Anderson test from Statsmodels package.
 
