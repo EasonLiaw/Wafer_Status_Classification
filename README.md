@@ -203,7 +203,7 @@ logins = {"host": <host_name>,
 ---
 
 ### 1. Overall confusion matrix
----
+**---**
 
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
 
