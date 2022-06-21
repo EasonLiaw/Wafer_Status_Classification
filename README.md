@@ -285,6 +285,18 @@ Thus, an alternative method to handle these outliers is to capping outliers at b
 For more details of proportion of outliers for all features, refer to the following CSV files: <b>Outliers_Info_Gaussian.csv, Outliers_Info_Non_Gaussian.csv</b>
 
 #### v. Gaussian transformation on non-gaussian variables
+In Machine Learning, several machine learning models like logistic regression and gaussian naive bayes tends to perform best when data follows the assumption of normal distribution. Out of 370 non-gaussian features, 65 features can be transformed into gaussian distribution with the following breakdown:
+
+| Gaussian transformation| No. of features|
+| :---------------------:|:--------------:|
+| Yeo-johnson            | 22             |
+| Reciprocal             | 1              |
+| Square root            | 24             |
+| Logarithmic            | 18             |
+
+Note that anderson test is used to identify whether a given gaussian transformation technique successfully converts a non-gaussian feature to a gaussian feature.
+
+For more detailed breakdown of gaussian transformation method used for various features, refer to the following CSV file: Best_Transformation_Non_Gaussian.csv
 
 #### vi. Feature scaling methods used
   
