@@ -227,6 +227,7 @@ The following information below summarizes the configuration of the best model i
 
 Note that the results above may differ for every instance of project implementation.
 
+---
 ### 3. Summary of model evaluation metrics from best classification model
 
 The following information below summarizes the evaluation metrics from the best model identified in this project: 
@@ -239,6 +240,7 @@ The following information below summarizes the evaluation metrics from the best 
 
 Note that the results above may differ for every instance of project implementation.
 
+---
 ### 4. Learning Curve Analysis
   
 ![Learning_Curve_Analysis](https://user-images.githubusercontent.com/34255556/174516293-9df8d219-8173-4a9c-9b8d-cc262ef2993d.png)
@@ -246,6 +248,7 @@ Note that the results above may differ for every instance of project implementat
 From the diagram above, the gap between train and test recall scores (from 5-fold cross validation) gradually decreases as number of training sample size increases.
 Although the gap between both scores are less than 10%, both scores have not yet stabilize over a number of training samples. This indicates that more data can still be collected to ensure less risk of overfitting.
 
+---
 ### 5. Summary from feature-engineering/data cleaning process
 Note that all intermediate results from this stage are stored in Intermediate_Train_Results folder for reference.
 
