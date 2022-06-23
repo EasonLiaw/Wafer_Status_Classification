@@ -1,5 +1,7 @@
-2022-06-20/19:21:38		Start storing best models for model deployment
-2022-06-20/19:21:38		Start performing feature scaling on prediction data
-2022-06-20/19:21:38		Finish performing feature scaling on prediction data
-2022-06-20/19:21:38		LogisticRegression model used to make predictions successfully
-2022-06-20/19:21:38		Finish making predictions using best models for model deployment
+2022-06-23/10:19:54		Start storing best models for model deployment
+2022-06-23/10:19:54		Start using best clustering model based on best configurations identified for prediction
+2022-06-23/10:19:54		Start performing feature scaling on prediction data
+2022-06-23/10:19:54		Finish performing feature scaling on prediction data
+2022-06-23/10:19:54		Finish making predictions using best clustering model based on best configurations identified
+2022-06-23/10:19:54		SVC model used to make predictions successfully
+2022-06-23/10:19:54		Finish making predictions using best models for model deployment

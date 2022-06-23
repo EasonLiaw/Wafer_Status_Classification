@@ -1,12 +1,13 @@
 '''
 Author: Liaw Yi Xian
-Last Modified: 20th June 2022
+Last Modified: 21th June 2022
 '''
 
 import ast
 from keras.models import Sequential
 from keras.layers import Dense
 from keras import layers
+from keras.callbacks import EarlyStopping
 import tensorflow as tf
 import tensorflow_addons as tfa
 from kneed import KneeLocator
@@ -21,7 +22,7 @@ from sklearn.naive_bayes import GaussianNB
 from xgboost import XGBClassifier
 from sklearn.base import clone
 import optuna
-from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import matthews_corrcoef, recall_score, make_scorer, ConfusionMatrixDisplay, classification_report
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
@@ -280,7 +281,7 @@ class model_trainer:
         X_train_sub, X_val_sub, y_train_sub, y_val_sub = train_test_split(X_train_data, y_train_data, test_size=0.25, random_state=random_state)
         val_model = tf.keras.models.clone_model(cont_model)
         val_model.compile(loss='binary_crossentropy', optimizer= "adam", metrics=[tf.keras.metrics.Recall(),tfa.metrics.MatthewsCorrelationCoefficient(num_classes=2)])
-        val_model.fit(X_train_sub, y_train_sub, epochs=5,batch_size=512,verbose=1)
+        val_model.fit(X_train_sub, y_train_sub, epochs=5,batch_size=64,verbose=1)
         train_mc = matthews_corrcoef(y_train_sub,(val_model.predict(X_train_sub)> 0.5).astype("int32"))
         val_mc = matthews_corrcoef(y_val_sub,(val_model.predict(X_val_sub)> 0.5).astype("int32"))
         train_recall = recall_score(y_train_sub,(val_model.predict(X_train_sub)> 0.5).astype("int32"), average='macro')
@@ -291,7 +292,7 @@ class model_trainer:
         trial.set_user_attr("val_recall_score_macro", val_recall)
         test_model = tf.keras.models.clone_model(cont_model)
         test_model.compile(loss='binary_crossentropy', optimizer= "adam", metrics=[tf.keras.metrics.Recall(),tfa.metrics.MatthewsCorrelationCoefficient(num_classes=2)])
-        test_model.fit(X_train_data, y_train_data, epochs=100,batch_size=512,verbose=1)
+        test_model.fit(X_train_data, y_train_data, epochs=100,batch_size=64,verbose=1,validation_data=(X_test_data, y_test_data),callbacks=[EarlyStopping(monitor='val_loss', verbose=1, patience=10)])
         train_val_mc = matthews_corrcoef(y_train_data,(test_model.predict(X_train_data)> 0.5).astype("int32"))
         test_mc = matthews_corrcoef(y_test_data,(test_model.predict(X_test_data)> 0.5).astype("int32"))
         train_val_recall = recall_score(y_train_data,(test_model.predict(X_train_data)> 0.5).astype("int32"), average='macro')
@@ -597,34 +598,23 @@ class model_trainer:
     def data_scaling_train_test(self, folderpath, train_data, gaussian_variables, test_data, non_gaussian_variables):
         '''
             Method Name: data_scaling_train_test
-            Description: This method performs feature scaling on training and testing data using Standard Scaler,
-            MinMax Scaler and MaxAbs Scaler method depending on type of variables.
+            Description: This method performs feature scaling on training and testing data using Standard Scaler or
+            MinMax Scaler method depending on type of variables.
             Output: Two pandas dataframe consist of training and testing scaled data.
             On Failure: Logging error and raise exception
         '''
         self.log_writer.log(self.file_object, f'Start performing scaling data on train and test set')
         try:
-            non_gaussian_absolute = []
-            non_gaussian = []
-            for variable in non_gaussian_variables:
-                if (train_data[variable]<0).sum() == 0:
-                    non_gaussian_absolute.append(variable)
-                else:
-                    non_gaussian.append(variable)
             scaler = self.fit_scaled_data(train_data[gaussian_variables], StandardScaler())
             gaussian_train_data_scaled = self.transform_scaled_data(train_data[gaussian_variables], scaler)
             gaussian_test_data_scaled = self.transform_scaled_data(test_data[gaussian_variables], scaler)
             pkl.dump(scaler, open(folderpath+'StandardScaler.pkl', 'wb'))
-            scaler = self.fit_scaled_data(train_data[non_gaussian], MinMaxScaler())
-            non_gaussian_train_data_scaled = self.transform_scaled_data(train_data[non_gaussian], scaler)
-            non_gaussian_test_data_scaled = self.transform_scaled_data(test_data[non_gaussian], scaler)
+            scaler = self.fit_scaled_data(train_data[non_gaussian_variables], MinMaxScaler())
+            non_gaussian_train_data_scaled = self.transform_scaled_data(train_data[non_gaussian_variables], scaler)
+            non_gaussian_test_data_scaled = self.transform_scaled_data(test_data[non_gaussian_variables], scaler)
             pkl.dump(scaler, open(folderpath+'MinMaxScaler.pkl', 'wb'))
-            scaler = self.fit_scaled_data(train_data[non_gaussian_absolute], MaxAbsScaler())
-            non_gaussian_absolute_train_data_scaled = self.transform_scaled_data(train_data[non_gaussian_absolute], scaler)
-            non_gaussian_absolute_test_data_scaled = self.transform_scaled_data(test_data[non_gaussian_absolute], scaler)
-            pkl.dump(scaler, open(folderpath+'MaxAbsScaler.pkl', 'wb'))
-            X_train_scaled = pd.concat([gaussian_train_data_scaled, non_gaussian_train_data_scaled,non_gaussian_absolute_train_data_scaled], axis=1)
-            X_test_scaled = pd.concat([gaussian_test_data_scaled, non_gaussian_test_data_scaled,non_gaussian_absolute_test_data_scaled], axis=1)
+            X_train_scaled = pd.concat([gaussian_train_data_scaled, non_gaussian_train_data_scaled], axis=1)
+            X_test_scaled = pd.concat([gaussian_test_data_scaled, non_gaussian_test_data_scaled], axis=1)
         except Exception as e:
             self.log_writer.log(self.file_object, f'Data scaling on training and test set failed with the following error: {e}')
             raise Exception(f'Data scaling on training and test set failed with the following error: {e}')
@@ -703,7 +693,7 @@ class model_trainer:
                         overall_model.add(layers.Dropout(rate=dropout_rate))
                 overall_model.add(Dense(1, activation="sigmoid", kernel_initializer = output_kernels))
                 overall_model.compile(loss='binary_crossentropy', optimizer= "adam", metrics=[tf.keras.metrics.Recall(),tfa.metrics.MatthewsCorrelationCoefficient(num_classes=2)])
-                overall_model.fit(X_sub, y_sub, epochs=100,batch_size=512,verbose=1)
+                overall_model.fit(X_sub, y_sub, epochs=100,batch_size=64,verbose=1,callbacks=[EarlyStopping(monitor='recall', verbose=1, patience=10)])
         except Exception as e:
             self.log_writer.log(self.file_object, f'Training and saving the {name_model} model failed with the following error: {e}')
             raise Exception(f'Training and saving the {name_model} model failed with the following error: {e}')
@@ -734,7 +724,7 @@ class model_trainer:
         X_train_scaled = X_train_scaled[self.train_data.columns]
         X_test_scaled = X_test_scaled[self.test_data.columns]
 
-        for n_features in range(1,min(31,len(X_train_scaled.columns)+1)):
+        for n_features in range(1,min(51,len(X_train_scaled.columns)+1)):
             for obj, clf in zip(objectives, selectors):
                 num_features, col_selected, model_name, best_params, clustering_yes_no  = [], [], [], [], []
                 train_matthews_corrcoef, val_matthews_corrcoef, train_recall_score, val_recall_score = [], [], [], []
