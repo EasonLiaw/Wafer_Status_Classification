@@ -206,24 +206,24 @@ logins = {"host": <host_name>,
 
 The following image below summarizes the confusion matrix from the final model trained for predicting status of wafers:
 
-![Overall_Confusion_Matrix](https://user-images.githubusercontent.com/34255556/174515490-e2c5e747-7f4e-41a5-bb7c-717007382f1b.png)
+![image](https://user-images.githubusercontent.com/34255556/175194305-afb07f5c-6c66-433f-ad95-6869bc327998.png)
 
-From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (6 samples), as compared to false positives (170 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
+From the image above, the classification model performs better for status of wafers in bad condition (1) with less false negatives (10 samples), as compared to false positives (173 samples). Given that the model evaluation criteria emphasize the costly impact of having false negatives, the current classification model is optimized to improve recall score, instead of precision score.
 
 ---
 ### 2. Best classification model configuration
 
 The following information below summarizes the configuration of the best model identified in this project:
 
-  - <b>Best model class identified</b>: Logistic Regression
+  - <b>Best model class identified</b>: Support Vector Classifier
 
-  - <b>Best model hyperparameters</b>: {'C': 0.2088851847576874, 'class_weight': 'balanced', 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': None, 'max_iter': 1000000, 'multi_class': 'auto', 'n_jobs': -1, 'penalty': 'l2', 'random_state': 42, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}
+  - <b>Best model hyperparameters</b>: {'C': 0.02364010981012719, 'break_ties': False, 'cache_size': 200, 'class_weight': 'balanced', 'coef0': 0.0, 'decision_function_shape': 'ovr', 'degree': 3, 'gamma': 'scale', 'kernel': 'linear', 'max_iter': -1, 'probability': True, 'random_state': 42, 'shrinking': True, 'tol': 0.001, 'verbose': False}
 
-  - <b>Number of features selected</b>: 26
+  - <b>Number of features selected</b>: 27
 
-  - <b>List of features selected</b>: ['Sensor56', 'Sensor76', 'Sensor101', 'Sensor104', 'Sensor112', 'Sensor122', 'Sensor126', 'Sensor130', 'Sensor131', 'Sensor184', 'Sensor269', 'Sensor292', 'Sensor320', 'Sensor324', 'Sensor337', 'Sensor346', 'Sensor384', 'Sensor407', 'Sensor419', 'Sensor424', 'Sensor434', 'Sensor456', 'Sensor511', 'Sensor518', 'Sensor541', 'Sensor583']
+  - <b>List of features selected</b>: ['Sensor56', 'Sensor76', 'Sensor101', 'Sensor104', 'Sensor112', 'Sensor122', 'Sensor126', 'Sensor130', 'Sensor131', 'Sensor184', 'Sensor246', 'Sensor269', 'Sensor292', 'Sensor320', 'Sensor324', 'Sensor337', 'Sensor346', 'Sensor384', 'Sensor407', 'Sensor419', 'Sensor424', 'Sensor434', 'Sensor456', 'Sensor511', 'Sensor518', 'Sensor541', 'Sensor583', 1, 2, 3] (Note: 1,2 and 3 indicates cluster number)
   
-  - <b>Clustering</b>: No
+  - <b>Clustering</b>: Yes
 
 Note that the results above may differ for every instance of project implementation.
 
@@ -232,21 +232,21 @@ Note that the results above may differ for every instance of project implementat
 
 The following information below summarizes the evaluation metrics from the best model identified in this project: 
 
-  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.2747
-  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2718
+  - <b>Matthews Correlation Coefficient (Train-val set)</b>: 0.2576
+  - <b>Matthews Correlation Coefficient (Test set)</b>: 0.2541
   
-  - <b>Recall score (Train-val set)</b>: 0.7800
-  - <b>Recall score (Test set)</b>: 0.7702
+  - <b>Recall score (Train-val set)</b>: 0.7626
+  - <b>Recall score (Test set)</b>: 0.7609
 
 Note that the results above may differ for every instance of project implementation.
 
 ---
 ### 4. Learning Curve Analysis
   
-![Learning_Curve_Analysis](https://user-images.githubusercontent.com/34255556/174516293-9df8d219-8173-4a9c-9b8d-cc262ef2993d.png)
+![image](https://user-images.githubusercontent.com/34255556/175194088-598f252a-ff27-41ba-9234-6bdbedefa0a3.png)
 
 From the diagram above, the gap between train and test recall scores (from 5-fold cross validation) gradually decreases as number of training sample size increases.
-Although the gap between both scores are less than 10%, both scores have not yet stabilize over a number of training samples. This indicates that more data can still be collected to ensure less risk of overfitting.
+Although the gap between both scores are approximately 13%, both scores have not yet stabilize over a number of training samples. This indicates that more data can still be collected to ensure less risk of overfitting.
 
 ---
 ### 5. Summary from feature-engineering/data cleaning process
