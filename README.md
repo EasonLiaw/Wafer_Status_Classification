@@ -15,9 +15,11 @@ In addition, schema of datasets for training and prediction is provided in .json
 
 **Code and Resources Used**
 ---
-- **Python Version** : 3.9.10
-- **Packages** : feature-engine, imbalanced-learn, kneed, matplotlib, mysql-connector-python, numpy, optuna, pandas, scikit-learn, scipy, seaborn, streamlit, tensorflow, keras
+- **Python Version** : 3.10.0
+- **Packages** : feature-engine, kneed, matplotlib, mysql-connector-python, numpy, optuna, pandas, scikit-learn, scipy, seaborn, streamlit, tensorflow, keras, xgboost
 - **Dataset source** : Education materials from OneNeuron platform
+- **Database Type**: MySQL
+- **MySQL documentation**: https://dev.mysql.com/doc/
 - **Streamlit documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 - **Optuna documentation** : https://spotipy.readthedocs.io/en/2.16.0/
 - **Tensorflow documentation**: https://www.tensorflow.org/api_docs
